@@ -23,7 +23,7 @@ export default function Header() {
           </li>
           <li>
             <a href="#" className="hover:text-gray-400">
-              Search Results Page
+              Favorites
             </a>
           </li>
         </ul>
