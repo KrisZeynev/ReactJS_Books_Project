@@ -5,6 +5,7 @@ import "./App.css";
 import NotFoundPage from "./components/not-found-page/NotFoundPage";
 import Login from "./components/login-page/Login";
 import { Register } from "./components/register-page/Register";
+import BookDetails from "./components/book-details/BookDetails";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
           {/* <NotFoundPage/> */}
           {/* <Login/> */}
           {/* <Register/> */}
-          <Home/>
+          {/* <Home/> */}
+          <BookDetails/>
         </main>
         <Footer />
       </div>
