@@ -4,6 +4,7 @@ import Header from "./components/header/Header";
 import "./App.css";
 import NotFoundPage from "./components/not-found-page/NotFoundPage";
 import Login from "./components/login-page/Login";
+import { Register } from "./components/register-page/Register";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <main className="flex-grow">
           {/* <Home></Home> */}
           {/* <NotFoundPage/> */}
-          <Login/>
+          {/* <Login/> */}
+          <Register/>
         </main>
         <Footer />
       </div>
