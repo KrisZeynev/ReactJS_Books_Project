@@ -7,16 +7,21 @@ import Login from "./components/login-page/Login";
 import { Register } from "./components/register-page/Register";
 import BookDetails from "./components/book-details/BookDetails";
 
+import { Routes, Route } from "react-router";
+
 function App() {
   return (
 
       <div className="min-h-screen flex flex-col">
         <Header/>
         <main className="flex-grow">
-          {/* <NotFoundPage/> */}
-          {/* <Login/> */}
-          {/* <Register/> */}
-          <Home/>
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            {/* <Route path="/catalog" element={<Home/>} /> */}
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="*" element={<NotFoundPage/>} />
+          </Routes>
           {/* <BookDetails/> */}
         </main>
         <Footer />
