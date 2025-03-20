@@ -18,7 +18,7 @@ export default function Header() {
           </li>
           <li>
             <a href="#" className="hover:text-gray-400">
-              Create Book
+              Add new book
             </a>
           </li>
           <li>
