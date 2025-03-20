@@ -28,6 +28,14 @@ export default function BookDetails() {
                 Delete
               </button>
             </div>
+            <div className="mt-6 flex gap-4">
+              <button className="px-4 py-2 bg-blue-500 text-white rounded-lg">
+                Like
+              </button>
+              <button className="px-4 py-2 bg-red-500 text-white rounded-lg">
+                Dislike
+              </button>
+            </div>
           </div>
         </div>
       </div>
