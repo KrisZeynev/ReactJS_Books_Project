@@ -16,8 +16,8 @@ function App() {
           {/* <NotFoundPage/> */}
           {/* <Login/> */}
           {/* <Register/> */}
-          {/* <Home/> */}
-          <BookDetails/>
+          <Home/>
+          {/* <BookDetails/> */}
         </main>
         <Footer />
       </div>
