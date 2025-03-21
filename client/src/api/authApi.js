@@ -13,3 +13,16 @@ export const useRegister = () => {
         register,
     }
 };
+
+
+export const useLogin = () => {
+    const login = async (email, password) =>
+        request.post(
+            `${baseUrl}/login`,
+            { email, password },
+        );
+
+    return {
+        login,
+    }
+};
