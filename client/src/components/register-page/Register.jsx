@@ -1,10 +1,23 @@
+import { Link, useNavigate } from "react-router";
+
 export function Register() {
+
+  const navigate = useNavigate();
+
+  const registerFunc = (data) => {
+    const {email, password, confirmPassword } = Object.fromEntries(data)
+    console.log(email);
+    console.log(password);
+    console.log(confirmPassword);
+    
+  }
+
   return (
     <section
       id="register-page"
       className="flex items-center justify-center min-h-screen bg-gray-100"
     >
-      <form id="register" className="bg-white p-8 rounded-lg shadow-lg w-96">
+      <form id="register" action={registerFunc} className="bg-white p-8 rounded-lg shadow-lg w-96">
         <div className="flex flex-col items-center">
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -48,15 +61,15 @@ export function Register() {
         />
 
         <label
-          htmlFor="confirm-password"
+          htmlFor="confirmPassword"
           className="block text-gray-700 font-medium"
         >
           Confirm Password:
         </label>
         <input
           type="password"
-          id="confirm-password"
-          name="confirm-password"
+          id="confirmPassword"
+          name="confirmPassword"
           className="w-full px-4 py-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
@@ -68,9 +81,9 @@ export function Register() {
 
         <p className="text-center text-gray-600 mt-4">
           If you already have a profile, click{" "}
-          <a href="#" className="text-blue-500 hover:underline">
+          <Link to="/login" className="text-blue-500 hover:underline">
             here
-          </a>
+          </Link>
         </p>
       </form>
     </section>
