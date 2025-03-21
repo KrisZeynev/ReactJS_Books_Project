@@ -1,10 +1,35 @@
+import { Link, useNavigate } from "react-router";
+import { useLogin } from "../../api/authApi";
+import { useState } from "react";
+
 export default function Login() {
+  const navigate = useNavigate();
+  const { login } = useLogin();
+  const [error, setError] = useState("")
+
+  const loginFunc = async (data) => {
+    const { email, password } = Object.fromEntries(data);
+
+    try {
+      const res = await login(email, password);
+      console.log(res);
+      // navigate("/");
+    } catch (error) {
+      setError(error.message)
+      console.error("Login failed:", error.message);
+    }
+  };
+
   return (
     <section
       id="login-page"
       className="flex items-center justify-center min-h-screen bg-gray-100"
     >
-      <form id="login" className="bg-white p-8 rounded-lg shadow-lg w-96">
+      <form
+        id="login"
+        action={loginFunc}
+        className="bg-white p-8 rounded-lg shadow-lg w-96"
+      >
         <div className="flex flex-col items-center">
           {/* <div className="brand-logo w-16 h-16 bg-gray-300 rounded-full mb-4"></div> */}
           <svg
@@ -57,11 +82,14 @@ export default function Login() {
 
         <p className="text-center text-gray-600 mt-4">
           If you don't have a profile, click{" "}
-          <a href="#" className="text-blue-500 hover:underline">
+          <Link to="/register" className="text-blue-500 hover:underline">
             here
-          </a>
+          </Link>
         </p>
       </form>
+     {error && 
+      (<div className="mt-4 p-3 w-96 text-center bg-red-100 border border-red-400 text-red-700 rounded-lg">Login failed</div>)
+     }
     </section>
   );
 }
