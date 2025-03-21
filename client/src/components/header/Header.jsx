@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function Header() {
   return (
     <header className="bg-gray-800 text-white py-4 px-8 flex flex-wrap justify-between items-center shadow-md">
@@ -7,37 +9,37 @@ export default function Header() {
       <nav className="w-full sm:w-auto">
         <ul className="flex flex-wrap justify-center sm:justify-start space-x-4 sm:space-x-6">
           <li>
-            <a href="#" className="hover:text-gray-400">
+            <Link to="/" className="hover:text-gray-400">
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="hover:text-gray-400">
+            <Link to="/catalog" className="hover:text-gray-400">
               Catalog
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="hover:text-gray-400">
+            <Link to="/catalog/create" className="hover:text-gray-400">
               Add new book
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" className="hover:text-gray-400">
+            <Link to="/favorites" className="hover:text-gray-400">
               Favorites
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
       <div className="flex flex-wrap justify-center sm:justify-end items-center space-x-4 w-full sm:w-auto mt-2 sm:mt-0">
-        <a href="#" className="hover:text-gray-400">
+        <Link to="/login" className="hover:text-gray-400">
           Login
-        </a>
-        <a href="#" className="hover:text-gray-400">
+        </Link>
+        <Link to="/register" className="hover:text-gray-400">
           Register
-        </a>
-        <a href="#" className="hover:text-gray-400">
+        </Link>
+        <Link to="/logout" className="hover:text-gray-400">
           Logout
-        </a>
+        </Link>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
