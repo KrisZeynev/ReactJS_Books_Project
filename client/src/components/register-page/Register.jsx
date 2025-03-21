@@ -1,14 +1,23 @@
 import { Link, useNavigate } from "react-router";
+import { useRegister } from "../../api/authApi";
 
 export function Register() {
 
   const navigate = useNavigate();
+  const {register} = useRegister()
 
-  const registerFunc = (data) => {
-    const {email, password, confirmPassword } = Object.fromEntries(data)
-    console.log(email);
-    console.log(password);
-    console.log(confirmPassword);
+  const registerFunc = async (data) => {
+    const {email, password, confirmPassword } = Object.fromEntries(data);
+
+    if (password !== confirmPassword) {
+      console.log('Password missmatch!');
+      return;
+  }
+
+    const res = await register(email, password)
+    console.log(res);
+    // console.log(password);
+    // console.log(confirmPassword);
     
   }
 
