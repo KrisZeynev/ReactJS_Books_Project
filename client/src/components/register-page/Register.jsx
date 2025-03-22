@@ -8,26 +8,52 @@ export function Register() {
   const { register } = useRegister();
   const { userLoginHandler } = useContext(UserContext);
   const [isFailed, setIsFailed] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
 
-  const registerFunc = async (data) => {
-    const { email, password, confirmPassword } = Object.fromEntries(data);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const registerFunc = async (e) => {
+    e.preventDefault();
+    const { email, password, confirmPassword } = Object.fromEntries(
+      new FormData(e.target)
+    );
 
     if (password !== confirmPassword) {
-      console.log("Password missmatch!"); 
-      return;
-    }
-
-    const res = await register(email, password);
-    if (!res.ok) {
-      console.log(res);
-      setIsFailed(true)
+      setIsFailed(true);
       setTimeout(() => {
         setIsFailed(false);
       }, 2000);
-      return
+      setErrMsg("Password missmatch!");
+      return;
     }
-    userLoginHandler(res);
-    navigate("/");
+
+    try {
+      const response = await fetch("http://localhost:3030/users/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        setErrMsg("User already exists!");
+        setIsFailed(true);
+        setTimeout(() => {
+          setIsFailed(false);
+        }, 2000);
+        return;
+      }
+
+      const result = await response.json();
+
+      userLoginHandler(result);
+      navigate("/");
+    } catch (error) {
+      setErrMsg(error);
+    }
   };
 
   return (
@@ -37,7 +63,7 @@ export function Register() {
     >
       <form
         id="register"
-        action={registerFunc}
+        onSubmit={registerFunc}
         className="bg-white p-8 rounded-lg shadow-lg w-96"
       >
         <div className="flex flex-col items-center">
@@ -65,6 +91,8 @@ export function Register() {
           type="email"
           id="email"
           name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="test@email.com"
           className="w-full px-4 py-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
@@ -79,6 +107,8 @@ export function Register() {
           type="password"
           id="register-password"
           name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
@@ -92,6 +122,8 @@ export function Register() {
           type="password"
           id="confirmPassword"
           name="confirmPassword"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
@@ -107,16 +139,12 @@ export function Register() {
             here
           </Link>
         </p>
-        {isFailed &&
-        (
+        {isFailed && (
           <div className="w-full mt-4 p-3 w-96 text-center bg-red-100 border border-red-400 text-red-700 rounded-lg">
-          Register failed
-        </div>
-        )
-        }
-
+            {errMsg}
+          </div>
+        )}
       </form>
-      
     </section>
   );
 }
