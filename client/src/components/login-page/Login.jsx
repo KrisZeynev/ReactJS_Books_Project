@@ -5,17 +5,20 @@ import { useState } from "react";
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useLogin();
-  const [error, setError] = useState("")
+  const [error, setError] = useState(false)
 
   const loginFunc = async (data) => {
     const { email, password } = Object.fromEntries(data);
 
     try {
       const res = await login(email, password);
+      if (res) {
+        navigate("/");
+      }
       console.log(res);
       // navigate("/");
     } catch (error) {
-      setError(error.message)
+      setError(true)
       console.error("Login failed:", error.message);
     }
   };
