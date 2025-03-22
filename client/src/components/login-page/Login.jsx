@@ -1,26 +1,34 @@
 import { Link, useNavigate } from "react-router";
 import { useLogin } from "../../api/authApi";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useLogin();
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
+
+  const { userLoginHandler } = useContext(UserContext);
 
   const loginFunc = async (data) => {
     const { email, password } = Object.fromEntries(data);
 
-    try {
-      const res = await login(email, password);
-      if (res) {
-        navigate("/");
-      }
-      console.log(res);
-      // navigate("/");
-    } catch (error) {
-      setError(true)
-      console.error("Login failed:", error.message);
-    }
+    const res = await login(email, password);
+
+    userLoginHandler(res);
+    navigate("/");
+
+    // try {
+    //   const res = await login(email, password);
+    //   if (res) {
+    //     navigate("/");
+    //   }
+    //   console.log(res);
+    //   // navigate("/");
+    // } catch (error) {
+    //   setError(true)
+    //   console.error("Login failed:", error.message);
+    // }
   };
 
   return (
@@ -90,9 +98,11 @@ export default function Login() {
           </Link>
         </p>
       </form>
-     {error && 
-      (<div className="mt-4 p-3 w-96 text-center bg-red-100 border border-red-400 text-red-700 rounded-lg">Login failed</div>)
-     }
+      {error && (
+        <div className="mt-4 p-3 w-96 text-center bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          Login failed
+        </div>
+      )}
     </section>
   );
 }

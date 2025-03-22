@@ -9,23 +9,34 @@ import BookDetails from "./components/book-details/BookDetails";
 
 import { Routes, Route } from "react-router";
 
-function App() {
-  return (
+import { UserContext } from "./contexts/UserContext";
+import { useState } from "react";
 
+function App() {
+
+  const [authData, setAuthData] = useState({})
+
+  const userLoginHandler = (resultData) => {
+    setAuthData(resultData);
+};
+
+  return (
+    <UserContext.Provider value={{...authData, userLoginHandler}}>
       <div className="min-h-screen flex flex-col">
-        <Header/>
+        <Header />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home/>} />
+            <Route path="/" element={<Home />} />
             {/* <Route path="/catalog" element={<Home/>} /> */}
-            <Route path="/login" element={<Login/>} />
-            <Route path="/register" element={<Register/>} />
-            <Route path="*" element={<NotFoundPage/>} />
+            <Route path="/login" element={<Login onLogin={userLoginHandler} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
           {/* <BookDetails/> */}
         </main>
         <Footer />
       </div>
+    </UserContext.Provider>
   );
 }
 
