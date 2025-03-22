@@ -11,6 +11,7 @@ import { Routes, Route } from "react-router";
 
 import { UserContext } from "./contexts/UserContext";
 import { useState } from "react";
+import Logout from "./components/logout/Logout";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
             {/* <Route path="/catalog" element={<Home/>} /> */}
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<Register />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           {/* <BookDetails/> */}
