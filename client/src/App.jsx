@@ -14,24 +14,32 @@ import { useState } from "react";
 import Logout from "./components/logout/Logout";
 
 function App() {
-
-  const [authData, setAuthData] = useState({})
+  const [authData, setAuthData] = useState({});
 
   const userLoginHandler = (resultData) => {
     setAuthData(resultData);
-};
+  };
+  console.log(authData.email);
 
   return (
-    <UserContext.Provider value={{...authData, userLoginHandler}}>
+    <UserContext.Provider value={{ ...authData, userLoginHandler }}>
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
           <Routes>
-            <Route path="/" element={<Home />} />
-            {/* <Route path="/catalog" element={<Home/>} /> */}
-            <Route path="/login" element={<Login/>} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/logout" element={<Logout />} />
+            {authData.email ? (
+              <>
+                <Route path="/" element={<Home />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/catalog/:id/details" element={<BookDetails />} />
+              </>
+            ) : (
+              <>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </>
+            )}
+
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           {/* <BookDetails/> */}
