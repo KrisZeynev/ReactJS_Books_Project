@@ -29,9 +29,8 @@ export default function Home() {
   ];
   return (
     <div className="flex flex-col items-center justify-center text-center p-6">
-      <h1 className="text-4xl font-bold text-gray-800 mb-4">{email}</h1>
       <h1 className="text-4xl font-bold text-gray-800 mb-4">
-        Welcome to BookHub 📚
+        Welcome to ReactJS Books Project 📚
       </h1>
       <p className="text-lg text-gray-600 mb-6">
         Discover, rate, and comment your favorite books!
