@@ -19,7 +19,6 @@ function App() {
   const userLoginHandler = (resultData) => {
     setAuthData(resultData);
   };
-  console.log(authData.email);
 
   return (
     <UserContext.Provider value={{ ...authData, userLoginHandler }}>
@@ -29,12 +28,12 @@ function App() {
           <Routes>
             {authData.email ? (
               <>
-                <Route path="/" element={<Home />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/catalog/:id/details" element={<BookDetails />} />
               </>
             ) : (
               <>
+                <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
               </>
