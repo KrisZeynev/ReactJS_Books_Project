@@ -1,34 +1,39 @@
 import { Link, useNavigate } from "react-router";
 import { useRegister } from "../../api/authApi";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 export function Register() {
-
   const navigate = useNavigate();
-  const {register} = useRegister()
+  const { register } = useRegister();
+  const { userLoginHandler } = useContext(UserContext);
 
   const registerFunc = async (data) => {
-    const {email, password, confirmPassword } = Object.fromEntries(data);
+    const { email, password, confirmPassword } = Object.fromEntries(data);
 
     if (password !== confirmPassword) {
-      console.log('Password missmatch!');
+      console.log("Password missmatch!");
       return;
-  }
+    }
 
-    const res = await register(email, password)
+    const res = await register(email, password);
+    userLoginHandler(res);
     console.log(res);
-    // console.log(password);
-    // console.log(confirmPassword);
-    
-  }
+    navigate("/");
+  };
 
   return (
     <section
       id="register-page"
       className="flex items-center justify-center min-h-screen bg-gray-100"
     >
-      <form id="register" action={registerFunc} className="bg-white p-8 rounded-lg shadow-lg w-96">
+      <form
+        id="register"
+        action={registerFunc}
+        className="bg-white p-8 rounded-lg shadow-lg w-96"
+      >
         <div className="flex flex-col items-center">
-        <svg
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
