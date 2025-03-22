@@ -1,24 +1,32 @@
 import { Link, useNavigate } from "react-router";
 import { useRegister } from "../../api/authApi";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 export function Register() {
   const navigate = useNavigate();
   const { register } = useRegister();
   const { userLoginHandler } = useContext(UserContext);
+  const [isFailed, setIsFailed] = useState(false);
 
   const registerFunc = async (data) => {
     const { email, password, confirmPassword } = Object.fromEntries(data);
 
     if (password !== confirmPassword) {
-      console.log("Password missmatch!");
+      console.log("Password missmatch!"); 
       return;
     }
 
     const res = await register(email, password);
+    if (!res.ok) {
+      console.log(res);
+      setIsFailed(true)
+      setTimeout(() => {
+        setIsFailed(false);
+      }, 2000);
+      return
+    }
     userLoginHandler(res);
-    console.log(res);
     navigate("/");
   };
 
@@ -57,7 +65,7 @@ export function Register() {
           type="email"
           id="email"
           name="email"
-          placeholder="yourEmail@email.com"
+          placeholder="test@email.com"
           className="w-full px-4 py-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
@@ -99,7 +107,16 @@ export function Register() {
             here
           </Link>
         </p>
+        {isFailed &&
+        (
+          <div className="w-full mt-4 p-3 w-96 text-center bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          Register failed
+        </div>
+        )
+        }
+
       </form>
+      
     </section>
   );
 }
