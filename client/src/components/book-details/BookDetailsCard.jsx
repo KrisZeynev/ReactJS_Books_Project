@@ -1,7 +1,7 @@
 export default function BookDetailsCard({book}) {
   return (
     <>
-      <div key={book.id} className="bg-white shadow-lg rounded-lg p-4">
+      <div key={book.id} className="bg-white shadow-lg rounded-lg p-4 w-80 h-111">
         <div>
         <img
           src={book.cover}
@@ -18,6 +18,7 @@ export default function BookDetailsCard({book}) {
         <div>
             <textarea className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="Add a comment"></textarea>
+          <button type="submit" className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all">Submit</button>
         </div>
       </div>
     </>

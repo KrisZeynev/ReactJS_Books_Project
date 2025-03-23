@@ -72,12 +72,16 @@ export default function Catalog() {
 
   return (
     <>
-      <h1>Catalog</h1>
+      <h1 className="text-4xl font-bold text-gray-800 mb-4 mt-4 text-center">
+        Catalog
+      </h1>
       <SearchBar />
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-20">
-        {featuredBooks.map((book) => (
-          <BookDetailsCard key={book.id} book={book} />
-        ))}
+      <div className="flex justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 gap-x-25 place-items-center mt-10 mb-10">
+          {featuredBooks.map((book) => (
+            <BookDetailsCard key={book.id} book={book} />
+          ))}
+        </div>
       </div>
     </>
   );
