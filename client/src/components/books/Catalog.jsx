@@ -1,5 +1,6 @@
 import BookDetailsCard from "../book-details/BookDetailsCard";
 import SearchBar from "../search-bar/SearchBar";
+import EmptyStateBook from "./EmptyStateBook";
 
 export default function Catalog() {
   const featuredBooks = [
@@ -81,6 +82,7 @@ export default function Catalog() {
           {featuredBooks.map((book) => (
             <BookDetailsCard key={book.id} book={book} />
           ))}
+          <EmptyStateBook/>
         </div>
       </div>
     </>

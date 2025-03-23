@@ -37,14 +37,9 @@ export default function Home() {
       </p>
 
       <h2 className="text-2xl font-semibold mb-4">Featured Books</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 gap-x-25">
         {featuredBooks.map((book) => (
           <BookDetailsCard key={book.id} book={book} />
-          // <div key={book.id} className="bg-white shadow-lg rounded-lg p-4">
-          //     <img src={book.cover} alt={book.title} className="w-full h-40 object-cover rounded-md mb-2" />
-          //     <h3 className="text-xl font-semibold">{book.title}</h3>
-          //     <p className="text-gray-500">by {book.author}</p>
-          // </div>
         ))}
       </div>
     </div>
