@@ -6,29 +6,43 @@ import { UserContext } from "../../contexts/UserContext";
 export default function Login() {
   const navigate = useNavigate();
   const { login } = useLogin();
-  const [error, setError] = useState(false);
+  const [isFailed, setIsFailed] = useState(false);
+  const [errMsg, setErrMsg] = useState(null);
 
   const { userLoginHandler } = useContext(UserContext);
 
-  const loginFunc = async (data) => {
-    const { email, password } = Object.fromEntries(data);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const res = await login(email, password);
+  const loginFunc = async (e) => {
+    e.preventDefault();
+    const { email, password } = Object.fromEntries(new FormData(e.target));
 
-    userLoginHandler(res);
-    navigate("/");
+    try {
+      const response = await fetch("http://localhost:3030/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    // try {
-    //   const res = await login(email, password);
-    //   if (res) {
-    //     navigate("/");
-    //   }
-    //   console.log(res);
-    //   // navigate("/");
-    // } catch (error) {
-    //   setError(true)
-    //   console.error("Login failed:", error.message);
-    // }
+      if (!response.ok) {
+        setIsFailed(true);
+        setTimeout(() => {
+          setIsFailed(false);
+        }, 2000);
+        const msg = await response.json();
+        setErrMsg(msg.message);
+        return;
+      }
+
+      const result = await response.json();
+      userLoginHandler(result);
+      navigate("/");
+    } catch (error) {
+      setErrMsg(error);
+    }
   };
 
   return (
@@ -38,7 +52,7 @@ export default function Login() {
     >
       <form
         id="login"
-        action={loginFunc}
+        onSubmit={loginFunc}
         className="bg-white p-8 rounded-lg shadow-lg w-96"
       >
         <div className="flex flex-col items-center">
@@ -68,6 +82,8 @@ export default function Login() {
           type="email"
           id="email"
           name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           placeholder="yourEmail@gmail.com"
           className="w-full px-4 py-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
@@ -82,6 +98,8 @@ export default function Login() {
           type="password"
           id="login-password"
           name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className="w-full px-4 py-2 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
@@ -97,12 +115,12 @@ export default function Login() {
             here
           </Link>
         </p>
+        {isFailed && (
+          <div className="mt-4 p-3 w-full max-w-xs text-center bg-red-100 border border-red-400 text-red-700 rounded-lg">
+            {errMsg}
+          </div>
+        )}
       </form>
-      {error && (
-        <div className="mt-4 p-3 w-96 text-center bg-red-100 border border-red-400 text-red-700 rounded-lg">
-          Login failed
-        </div>
-      )}
     </section>
   );
 }

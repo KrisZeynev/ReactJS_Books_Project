@@ -48,7 +48,6 @@ export function Register() {
       }
 
       const result = await response.json();
-
       userLoginHandler(result);
       navigate("/");
     } catch (error) {
