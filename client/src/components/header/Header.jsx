@@ -31,6 +31,11 @@ export default function Header() {
               Preferences
             </Link>
           </li>
+          <li>
+            <Link to="/about-us" className="hover:text-gray-400">
+              About Us
+            </Link>
+          </li>
         </ul>
       </nav>
       <div className="flex flex-wrap justify-center sm:justify-end items-center space-x-4 w-full sm:w-auto mt-2 sm:mt-0">

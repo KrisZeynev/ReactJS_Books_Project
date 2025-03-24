@@ -15,6 +15,7 @@ import Logout from "./components/logout/Logout";
 import Catalog from "./components/books/Catalog";
 import CreateBook from "./components/books/CreateBook";
 import BookPreferences from "./components/book-preferences/BookPreferences";
+import About from "./components/about-page/About";
 
 function App() {
   const [authData, setAuthData] = useState({});
@@ -38,12 +39,14 @@ function App() {
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/catalog/create" element={<CreateBook />} />
-                <Route path="/books/preferences" element={<BookPreferences />} />
+                <Route path="/catalog/create" element={<CreateBook />} /> {/* TODO: move above*/}
+                <Route path="/books/preferences" element={<BookPreferences />} /> {/* TODO: move above*/}
+                
               </>
             )}
-            <Route path="/catalog" element={<Catalog />} />
             <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/about-us" element={<About />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           {/* <BookDetails/> */}
