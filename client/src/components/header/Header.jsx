@@ -27,8 +27,8 @@ export default function Header() {
             </Link>
           </li>
           <li>
-            <Link to="/favorites" className="hover:text-gray-400">
-              Favorites
+            <Link to="/books/preferences" className="hover:text-gray-400">
+              Preferences
             </Link>
           </li>
         </ul>

@@ -14,6 +14,7 @@ import { useState } from "react";
 import Logout from "./components/logout/Logout";
 import Catalog from "./components/books/Catalog";
 import CreateBook from "./components/books/CreateBook";
+import BookPreferences from "./components/book-preferences/BookPreferences";
 
 function App() {
   const [authData, setAuthData] = useState({});
@@ -38,6 +39,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/catalog/create" element={<CreateBook />} />
+                <Route path="/books/preferences" element={<BookPreferences />} />
               </>
             )}
             <Route path="/catalog" element={<Catalog />} />
