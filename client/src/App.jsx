@@ -32,12 +32,12 @@ function App() {
               <>
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/catalog/:id/details" element={<BookDetails />} />
-                <Route path="/catalog/create" element={<CreateBook />} />
               </>
             ) : (
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/catalog/create" element={<CreateBook />} />
               </>
             )}
             <Route path="/catalog" element={<Catalog />} />
