@@ -13,6 +13,7 @@ import { UserContext } from "./contexts/UserContext";
 import { useState } from "react";
 import Logout from "./components/logout/Logout";
 import Catalog from "./components/books/Catalog";
+import CreateBook from "./components/books/CreateBook";
 
 function App() {
   const [authData, setAuthData] = useState({});
@@ -31,6 +32,7 @@ function App() {
               <>
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/catalog/:id/details" element={<BookDetails />} />
+                <Route path="/catalog/create" element={<CreateBook />} />
               </>
             ) : (
               <>
