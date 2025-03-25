@@ -35,12 +35,13 @@ function App() {
               <>
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/catalog/:id/details" element={<BookDetails />} />
-                <Route path="/catalog/create" element={<CreateBook />} /> {/* TODO: move above*/}
               </>
             ) : (
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/catalog/create" element={<CreateBook />} /> {/* TODO: move above*/}
+
                 
                 <Route path="/books/preferences" element={<BookPreferences />} /> {/* TODO: move above*/}
                 

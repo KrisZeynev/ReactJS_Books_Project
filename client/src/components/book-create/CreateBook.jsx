@@ -1,14 +1,11 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
-
-
-
-
+import { useNavigate } from "react-router";
 
 export default function CreateBook() {
   const [errors, setErrors] = useState({});
-
-  const {accessToken} = useContext(UserContext)
+  const {accessToken} = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -90,7 +87,7 @@ export default function CreateBook() {
       return; 
     }
 
-    const baseUrl = 'http://localhost:3030/data/books';
+    const baseUrl = 'http://localhost:3030/data/catalog';
 
     try {
       const response = await fetch(baseUrl, {
@@ -103,14 +100,12 @@ export default function CreateBook() {
       });
       console.log(response);
       console.log('good to go');
+      navigate('/catalog')
       
     } catch (error) {
-      console.log(error);
+      console.log(`here: ${error}`);
       
     }
-
-
-
     // console.log("Form submitted successfully:", { title, description, author, genre, publicationYear, publicationDate, pages, publisher, isbn, image });
   };
 
