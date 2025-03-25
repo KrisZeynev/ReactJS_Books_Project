@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router";
 
@@ -6,6 +6,15 @@ export default function CreateBook() {
   const [errors, setErrors] = useState({});
   const {accessToken} = useContext(UserContext);
   const navigate = useNavigate();
+
+  const formRef = useRef(null);
+
+  const handleFormClose = (e) => {
+    if (formRef.current) {
+      formRef.current.reset();
+    }
+    setErrors({});
+  }
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -18,9 +27,7 @@ export default function CreateBook() {
       author: /^[A-Za-z\s\-\,\.\!\'\"]{3,50}$/,
       genre: /^[A-Za-z\s\-\,\.\!\'\"]{3,50}$/,
       publicationYear: /^(19|20)\d{2}$/,
-      publicationDate: /^\d{4}-\d{2}-\d{2}$/,
       pages: /^[1-9][0-9]*$/,
-      publisher: /^[A-Za-z0-9\s\-\,\.\!\'\"]{3,100}$/,
       isbn: /^(97(8|9))?\d{9}(\d|X)$/,
       image: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp))$/,
     };
@@ -31,9 +38,7 @@ export default function CreateBook() {
       author,
       genre,
       publicationYear,
-      publicationDate,
       pages,
-      publisher,
       isbn,
       image,
     } = Object.fromEntries(new FormData(e.target));
@@ -61,17 +66,8 @@ export default function CreateBook() {
         "Publication Year must be a valid year (1900-2099).";
     }
 
-    if (!publicationDate || !regexes.publicationDate.test(publicationDate)) {
-      fieldErrors.publicationDate =
-        "Publication Date must be in the format YYYY-MM-DD.";
-    }
-
     if (!pages || !regexes.pages.test(pages)) {
       fieldErrors.pages = "Pages must be a positive integer.";
-    }
-
-    if (!publisher || !regexes.publisher.test(publisher)) {
-      fieldErrors.publisher = "Publisher must be between 3 and 100 characters.";
     }
 
     if (!isbn || !regexes.isbn.test(isbn)) {
@@ -96,7 +92,7 @@ export default function CreateBook() {
           "Content-Type": "application/json",
           'X-Authorization': accessToken,
         },
-        body: JSON.stringify({ title, description, author, genre, publicationYear, publicationDate, pages, publisher, isbn, image }),
+        body: JSON.stringify({ title, description, author, genre, publicationYear, pages, isbn, image }),
       });
       console.log(response);
       console.log('good to go');
@@ -112,7 +108,7 @@ export default function CreateBook() {
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10">
       <h1 className="text-2xl font-semibold mb-4 text-center">Create New Book</h1>
-      <form className="space-y-4" onSubmit={handleFormSubmit}>
+      <form className="space-y-4" onSubmit={handleFormSubmit} ref={formRef}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="block">
             <span className="text-gray-700">Title</span>
@@ -179,19 +175,6 @@ export default function CreateBook() {
             )}
           </label>
           <label className="block">
-            <span className="text-gray-700">Publication Date</span>
-            <input
-              type="date"
-              name="publicationDate"
-              className={`mt-1 block w-full p-2 border rounded-lg ${
-                errors.publicationDate ? "border-red-500" : ""
-              }`}
-            />
-            {errors.publicationDate && (
-              <p className="text-red-500 text-sm">{errors.publicationDate}</p>
-            )}
-          </label>
-          <label className="block">
             <span className="text-gray-700">Number of Pages</span>
             <input
               type="text"
@@ -202,20 +185,6 @@ export default function CreateBook() {
               }`}
             />
             {errors.pages && <p className="text-red-500 text-sm">{errors.pages}</p>}
-          </label>
-          <label className="block">
-            <span className="text-gray-700">Publisher</span>
-            <input
-              type="text"
-              name="publisher"
-              placeholder="Publisher*"
-              className={`mt-1 block w-full p-2 border rounded-lg ${
-                errors.publisher ? "border-red-500" : ""
-              }`}
-            />
-            {errors.publisher && (
-              <p className="text-red-500 text-sm">{errors.publisher}</p>
-            )}
           </label>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -254,6 +223,7 @@ export default function CreateBook() {
           <button
             type="button"
             className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600"
+            onClick={handleFormClose}
           >
             Cancel
           </button>
