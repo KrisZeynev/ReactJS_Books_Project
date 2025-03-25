@@ -13,9 +13,10 @@ import { UserContext } from "./contexts/UserContext";
 import { useState } from "react";
 import Logout from "./components/logout/Logout";
 import Catalog from "./components/books/Catalog";
-import CreateBook from "./components/books/CreateBook";
+// import CreateBook from "./components/book-create/CreateBook";
 import BookPreferences from "./components/book-preferences/BookPreferences";
 import About from "./components/about-page/About";
+import CreateBook from "./components/book-create/CreateBook";
 
 function App() {
   const [authData, setAuthData] = useState({});
@@ -34,12 +35,13 @@ function App() {
               <>
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/catalog/:id/details" element={<BookDetails />} />
+                <Route path="/catalog/create" element={<CreateBook />} /> {/* TODO: move above*/}
               </>
             ) : (
               <>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/catalog/create" element={<CreateBook />} /> {/* TODO: move above*/}
+                
                 <Route path="/books/preferences" element={<BookPreferences />} /> {/* TODO: move above*/}
                 
               </>

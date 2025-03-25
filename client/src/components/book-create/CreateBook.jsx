@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../contexts/UserContext";
+
+
+
+
 
 export default function CreateBook() {
   const [errors, setErrors] = useState({});
 
-  const handleFormSubmit = (e) => {
+  const {accessToken} = useContext(UserContext)
+
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     const fieldErrors = {};
@@ -83,7 +90,28 @@ export default function CreateBook() {
       return; 
     }
 
-    console.log("Form submitted successfully:", { title, description, author, genre, publicationYear, publicationDate, pages, publisher, isbn, image });
+    const baseUrl = 'http://localhost:3030/data/books';
+
+    try {
+      const response = await fetch(baseUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          'X-Authorization': accessToken,
+        },
+        body: JSON.stringify({ title, description, author, genre, publicationYear, publicationDate, pages, publisher, isbn, image }),
+      });
+      console.log(response);
+      console.log('good to go');
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+
+
+
+    // console.log("Form submitted successfully:", { title, description, author, genre, publicationYear, publicationDate, pages, publisher, isbn, image });
   };
 
   return (
