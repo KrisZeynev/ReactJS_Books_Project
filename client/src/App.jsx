@@ -18,6 +18,7 @@ import BookPreferences from "./components/book-preferences/BookPreferences";
 import About from "./components/about-page/About";
 import CreateBook from "./components/book-create/CreateBook";
 import AuthGuard from "./guards/AuthGuard";
+import GuestGuard from "./guards/GuestGuard";
 
 function App() {
   const [authData, setAuthData] = useState({});
@@ -34,6 +35,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
+            <Route path="/catalog/:id/details" element={<BookDetails />} />
             <Route path="/about-us" element={<About />} />
 
             <Route element={<AuthGuard />}>
@@ -42,9 +44,10 @@ function App() {
               <Route path="/books/preferences" element={<BookPreferences />} />
             </Route>
 
-            <Route path="/catalog/:id/details" element={<BookDetails />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route element={<GuestGuard />}>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Route>
 
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
