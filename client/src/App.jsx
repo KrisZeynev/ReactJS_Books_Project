@@ -17,6 +17,7 @@ import Catalog from "./components/books/Catalog";
 import BookPreferences from "./components/book-preferences/BookPreferences";
 import About from "./components/about-page/About";
 import CreateBook from "./components/book-create/CreateBook";
+import AuthGuard from "./guards/AuthGuard";
 
 function App() {
   const [authData, setAuthData] = useState({});
@@ -31,25 +32,20 @@ function App() {
         <Header />
         <main className="flex-grow">
           <Routes>
-            {authData.email ? (
-              <>
-                <Route path="/logout" element={<Logout />} />
-                <Route path="/catalog/:id/details" element={<BookDetails />} />
-              </>
-            ) : (
-              <>
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/catalog/create" element={<CreateBook />} /> {/* TODO: move above*/}
-
-                
-                <Route path="/books/preferences" element={<BookPreferences />} /> {/* TODO: move above*/}
-                
-              </>
-            )}
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/about-us" element={<About />} />
+
+            <Route element={<AuthGuard />}>
+              <Route path="/catalog/create" element={<CreateBook />} />{" "}
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/books/preferences" element={<BookPreferences />} />
+            </Route>
+
+            <Route path="/catalog/:id/details" element={<BookDetails />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           {/* <BookDetails/> */}
