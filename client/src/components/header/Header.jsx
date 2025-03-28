@@ -3,9 +3,10 @@ import { Link } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 
 export default function Header() {
-  const { email, userLogoutHandler } = useContext(UserContext);
-  console.log(email);
-  
+  const { userLogoutHandler } = useContext(UserContext);
+  // const { email, userLogoutHandler } = useContext(UserContext);
+  const email = localStorage.getItem("email");
+
   return (
     <header className="bg-gray-800 text-white py-4 px-8 flex flex-wrap justify-between items-center shadow-md">
       <div className="text-xl font-bold w-full sm:w-auto text-center sm:text-left">
@@ -23,16 +24,21 @@ export default function Header() {
               Catalog
             </Link>
           </li>
-          <li>
-            <Link to="/catalog/create" className="hover:text-gray-400">
-              Add new book
-            </Link>
-          </li>
-          <li>
-            <Link to="/books/preferences" className="hover:text-gray-400">
-              Preferences
-            </Link>
-          </li>
+          {email && (
+            <>
+              <li>
+                <Link to="/catalog/create" className="hover:text-gray-400">
+                  Add new book
+                </Link>
+              </li>
+              <li>
+                <Link to="/books/preferences" className="hover:text-gray-400">
+                  Preferences
+                </Link>
+              </li>
+            </>
+          )}
+
           <li>
             <Link to="/about-us" className="hover:text-gray-400">
               About Us
@@ -43,8 +49,12 @@ export default function Header() {
       <div className="flex flex-wrap justify-center sm:justify-end items-center space-x-4 w-full sm:w-auto mt-2 sm:mt-0">
         {email ? (
           <>
-          {<span>{email}</span>}
-            <Link to="/logout" className="hover:text-gray-400" onClick={userLogoutHandler}>
+            {<span>{email}</span>}
+            <Link
+              to="/logout"
+              className="hover:text-gray-400"
+              onClick={userLogoutHandler}
+            >
               Logout
             </Link>
           </>
