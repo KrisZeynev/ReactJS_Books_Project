@@ -32,7 +32,7 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link to="/books/preferences" className="hover:text-gray-400">
+                <Link to="/catalog/preferences" className="hover:text-gray-400">
                   Preferences
                 </Link>
               </li>
