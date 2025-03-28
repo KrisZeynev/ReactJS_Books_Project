@@ -25,10 +25,14 @@ function App() {
 
   const userLoginHandler = (resultData) => {
     setAuthData(resultData);
+    localStorage.setItem('email', resultData.email)
+    localStorage.setItem('authData', JSON.stringify(resultData))
   };
 
   const userLogoutHandler = () => {
     setAuthData({});
+    localStorage.removeItem('email')
+    localStorage.removeItem('authData')
   };
 
   return (
