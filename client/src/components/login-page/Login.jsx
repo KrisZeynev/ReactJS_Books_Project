@@ -48,7 +48,7 @@ export default function Login() {
   return (
     <section
       id="login-page"
-      className="flex items-center justify-center min-h-screen bg-gray-100"
+      className="flex items-center justify-center min-h-screen"
     >
       <form
         id="login"

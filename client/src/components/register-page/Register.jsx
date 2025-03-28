@@ -58,7 +58,7 @@ export function Register() {
   return (
     <section
       id="register-page"
-      className="flex items-center justify-center min-h-screen bg-gray-100"
+      className="flex items-center justify-center min-h-screen"
     >
       <form
         id="register"

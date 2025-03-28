@@ -1,4 +1,12 @@
 @import "tailwindcss";
+
+#root {
+  background-color: #dbdcdc;
+}
+
+/* #9bb3c2 - login/register*/
+
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
