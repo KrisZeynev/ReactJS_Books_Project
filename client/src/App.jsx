@@ -25,31 +25,33 @@ function App() {
 
   const userLoginHandler = (resultData) => {
     setAuthData(resultData);
-    localStorage.setItem('email', resultData.email)
-    localStorage.setItem('authData', JSON.stringify(resultData))
+    localStorage.setItem("email", resultData.email);
+    localStorage.setItem("authData", JSON.stringify(resultData));
   };
 
   const userLogoutHandler = () => {
     setAuthData({});
-    localStorage.removeItem('email')
-    localStorage.removeItem('authData')
+    localStorage.removeItem("email");
+    localStorage.removeItem("authData");
   };
 
   return (
-    <UserContext.Provider value={{ ...authData, userLoginHandler, userLogoutHandler }}>
+    <UserContext.Provider
+      value={{ ...authData, userLoginHandler, userLogoutHandler }}
+    >
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/catalog" element={<Catalog />} />
-            <Route path="/catalog/:id/details" element={<BookDetails />} />
             <Route path="/about-us" element={<About />} />
 
             <Route element={<AuthGuard />}>
-              <Route path="/catalog/create" element={<CreateBook />} />{" "}
               <Route path="/logout" element={<Logout />} />
-              <Route path="/books/preferences" element={<BookPreferences />} />
+              <Route path="/catalog/preferences" element={<BookPreferences />} />
+              <Route path="/catalog/create" element={<CreateBook />} />
+              <Route path="/catalog/:id/details" element={<BookDetails />} />
             </Route>
 
             <Route element={<GuestGuard />}>
