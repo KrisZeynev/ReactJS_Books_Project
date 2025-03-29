@@ -6,7 +6,7 @@ import { useHomeBooks } from "../../api/bookApi";
 export default function Home() {
   const { email } = useContext(UserContext);
 
-  const featuredBooks = useHomeBooks();  
+  const featuredBooks = useHomeBooks();
 
   return (
     <div className="flex flex-col items-center justify-center text-center p-6">
@@ -17,12 +17,20 @@ export default function Home() {
         Discover, rate, and comment your favorite books!
       </p>
 
-      <h2 className="text-2xl font-semibold mb-4">Featured Books</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 gap-x-25">
-        {featuredBooks.map((book) => (
-          <BookDetailsCard key={book._id} book={book} />
-        ))}
-      </div>
+      {email ? (
+        <>
+          <h2 className="text-2xl font-semibold mb-4">Featured Books</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 gap-x-25">
+            {featuredBooks.map((book) => (
+              <BookDetailsCard key={book._id} book={book} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <h1 className="text-2xl font-semibold text-gray-500 mt-6 bg-red-100 px-6 py-3 rounded-lg border border-red-400 shadow-md">
+          No books found!
+        </h1>
+      )}
     </div>
   );
 }
