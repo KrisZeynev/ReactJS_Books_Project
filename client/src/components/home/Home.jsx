@@ -7,6 +7,7 @@ export default function Home() {
   const { email } = useContext(UserContext);
 
   const featuredBooks = useHomeBooks();
+  console.log();
 
   return (
     <div className="flex flex-col items-center justify-center text-center p-6">
@@ -23,9 +24,11 @@ export default function Home() {
           <BookDetailsCard key={book._id} book={book} />
         ))}
       </div>
-      <h1 className="text-2xl font-semibold text-gray-500 mt-6 bg-red-100 px-6 py-3 rounded-lg border border-red-400 shadow-md">
-        No books found!
-      </h1>
+      {featuredBooks.length === 0 && (
+        <h1 className="text-2xl font-semibold text-gray-500 mt-6 bg-red-100 px-6 py-3 rounded-lg border border-red-400 shadow-md">
+          No books found!
+        </h1>
+      )}
     </div>
   );
 }
