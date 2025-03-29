@@ -36,46 +36,47 @@ export default function BookDetailsCard({ book }) {
 
         <div id="main" className="mt-6 mb-6 text-center">
           {email && (
-            <div className="flex justify-center space-x-4">
-              {book._ownerId === _id ? (
-                <>
-                  <button
-                    className="flex items-center space-x-2 px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md 
+            <>
+              <div className="flex justify-center space-x-4">
+                {book._ownerId === _id ? (
+                  <>
+                    <button
+                      className="flex items-center space-x-2 px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md 
                             hover:bg-blue-600 hover:scale-105 transition-transform duration-200"
-                  >
-                    <FaEdit />
-                    <span>Edit</span>
-                  </button>
-                  <button
-                    className="flex items-center space-x-2 px-5 py-2 bg-red-500 text-white rounded-lg shadow-md 
+                    >
+                      <FaEdit />
+                      <span>Edit</span>
+                    </button>
+                    <button
+                      className="flex items-center space-x-2 px-5 py-2 bg-red-500 text-white rounded-lg shadow-md 
                             hover:bg-red-600 hover:scale-105 transition-transform duration-200"
-                  >
-                    <FaTrash />
-                    <span>Delete</span>
-                  </button>
-                </>
-              ) : (
-                <>
-                  <button
-                    className="flex items-center space-x-2 px-5 py-2 bg-green-500 text-white rounded-lg shadow-md 
+                    >
+                      <FaTrash />
+                      <span>Delete</span>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      className="flex items-center space-x-2 px-5 py-2 bg-green-500 text-white rounded-lg shadow-md 
                             hover:bg-green-600 hover:scale-105 transition-transform duration-200"
-                  >
-                    <FaThumbsUp />
-                    <span>Like</span>
-                  </button>
-                  <button
-                    className="flex items-center space-x-2 px-5 py-2 bg-gray-500 text-white rounded-lg shadow-md 
+                    >
+                      <FaThumbsUp />
+                      <span>Like</span>
+                    </button>
+                    <button
+                      className="flex items-center space-x-2 px-5 py-2 bg-gray-500 text-white rounded-lg shadow-md 
                             hover:bg-gray-600 hover:scale-105 transition-transform duration-200"
-                  >
-                    <FaThumbsDown />
-                    <span>Dislike</span>
-                  </button>
-                </>
-              )}
-            </div>
+                    >
+                      <FaThumbsDown />
+                      <span>Dislike</span>
+                    </button>
+                  </>
+                )}
+              </div>
+              <hr className="my-6 border-gray-300 w-3/4 mx-auto" />
+            </>
           )}
-
-          <hr className="my-6 border-gray-300 w-3/4 mx-auto" />
 
           <div className="flex justify-center">
             <Link

@@ -7,7 +7,6 @@ export default function Home() {
   const { email } = useContext(UserContext);
 
   const featuredBooks = useHomeBooks();
-  console.log();
 
   return (
     <div className="flex flex-col items-center justify-center text-center p-6">
