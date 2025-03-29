@@ -1,9 +1,11 @@
+import { useContext } from "react";
 import { Link } from "react-router";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function EmptyStateBook() {
-    const email = false
+    const { email } = useContext(UserContext);
   return (
-    <div className={`bg-white shadow-lg rounded-lg p-4 w-80 ${email ? 'h-111' : 'h-65'} flex flex-col items-center justify-center border-dashed border-2 border-gray-300`}>
+    <div className={`bg-white shadow-lg rounded-lg p-4 w-80 ${email ? "h-138" : "h-81"} flex flex-col items-center justify-center border-dashed border-2 border-gray-300`}>
       <div className="text-center flex flex-col items-center justify-center">
         <Link to="/catalog/create">
           <button className="p-4 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-all cursor-pointer">
