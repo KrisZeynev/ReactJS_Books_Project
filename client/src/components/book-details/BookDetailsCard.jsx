@@ -11,7 +11,7 @@ export default function BookDetailsCard({ book }) {
   return (
     <>
       <div
-        key={book.id}
+        key={book._id}
         className={`bg-white shadow-lg rounded-lg p-4 w-80 ${
           email ? "h-111" : "h-65"
         }`}
@@ -19,7 +19,7 @@ export default function BookDetailsCard({ book }) {
       >
         <div className="text-center">
           <img
-            src={book.cover}
+            src={book.image}
             alt={book.title}
             className="w-full h-40 object-cover rounded-md mb-2"
           />

@@ -96,7 +96,7 @@ export default function CreateBook() {
       });
       console.log(response);
       console.log('good to go');
-      navigate('/catalog')
+      navigate(-1)
       
     } catch (error) {
       console.log(`here: ${error}`);

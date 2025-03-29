@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import BookDetailsCard from "../book-details/BookDetailsCard";
+import { useHomeBooks } from "../../api/bookApi";
 
 export default function Home() {
   const { email } = useContext(UserContext);
@@ -27,6 +28,15 @@ export default function Home() {
         "https://static.vecteezy.com/system/resources/thumbnails/034/039/987/small/man-in-a-tunnel-made-of-books-books-and-knowledge-concept-generated-by-artificial-intelligence-photo.jpg",
     },
   ];
+
+  const featuredBooks1 = useHomeBooks();
+  featuredBooks1.forEach(element => {
+    console.log(element);
+    
+  });
+  // console.log(books);
+  
+
   return (
     <div className="flex flex-col items-center justify-center text-center p-6">
       <h1 className="text-4xl font-bold text-gray-800 mb-4">
@@ -38,8 +48,8 @@ export default function Home() {
 
       <h2 className="text-2xl font-semibold mb-4">Featured Books</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 gap-x-25">
-        {featuredBooks.map((book) => (
-          <BookDetailsCard key={book.id} book={book} />
+        {featuredBooks1.map((book) => (
+          <BookDetailsCard key={book._id} book={book} />
         ))}
       </div>
     </div>

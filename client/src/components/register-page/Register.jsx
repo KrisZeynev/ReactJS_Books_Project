@@ -3,6 +3,9 @@ import { useRegister } from "../../api/authApi";
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
+import "./Register.css/"
+
+
 export function Register() {
   const navigate = useNavigate();
   const { register } = useRegister();
@@ -146,4 +149,5 @@ export function Register() {
       </form>
     </section>
   );
+
 }
