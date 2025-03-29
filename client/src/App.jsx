@@ -21,12 +21,18 @@ import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
 
 function App() {
-  const [authData, setAuthData] = useState({});
+  // const [authData, setAuthData] = useState({});
+
+  const [authData, setAuthData] = useState(() => {
+    const savedAuthData = localStorage.getItem("authData");
+    return savedAuthData ? JSON.parse(savedAuthData) : {};
+  });
 
   const userLoginHandler = (resultData) => {
-    setAuthData(resultData);
+    setAuthData(resultData)
     localStorage.setItem("email", resultData.email);
     localStorage.setItem("authData", JSON.stringify(resultData));
+    // setAuthData(JSON.parse(localStorage.getItem("authData")));
   };
 
   const userLogoutHandler = () => {
