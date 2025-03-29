@@ -2,10 +2,8 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 export default function BookDetailsCard({ book }) {
-  // TODO: implement the correct logic for email and creator later
-  const isCreator = true;
-  // const { email } = useContext(UserContext);
-  const email = false;
+  const { email, _id } = useContext(UserContext);
+
   // className="bg-white shadow-lg rounded-lg p-4 w-80 h-111"
 
   return (
@@ -31,7 +29,7 @@ export default function BookDetailsCard({ book }) {
         {email && (
           <>
             <div className="flex justify-center space-x-4 mt-4 mb-4">
-              {isCreator ? (
+              {book._ownerId === _id ? (
                 <>
                   <button className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all">
                     Edit
