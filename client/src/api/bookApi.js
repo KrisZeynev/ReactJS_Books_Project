@@ -26,3 +26,27 @@ export const useHomeBooks = () => {
 
   return books;
 };
+
+export const useCatalog = () => {
+  const [catalog, setCatalog] = useState([]);
+
+  useEffect(() => {
+    const fetchCatalog = async () => {
+      try {
+        const searchParams = new URLSearchParams({
+          sortBy: "_createdOn desc",
+        });
+
+        const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
+        const data = await response.json();
+        setCatalog(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchCatalog();
+  }, []);
+
+  return catalog;
+};
