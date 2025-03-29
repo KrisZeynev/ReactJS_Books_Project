@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import BookDetailsCard from "../book-details/BookDetailsCard";
 import SearchBar from "../search-bar/SearchBar";
 import EmptyStateBook from "./EmptyStateBook";
 import { useCatalog } from "../../api/bookApi";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Catalog() {
+  const { email } = useContext(UserContext)
 
   const allBooks = useCatalog();
 
@@ -19,7 +21,7 @@ export default function Catalog() {
           {allBooks.map((book) => (
             <BookDetailsCard key={book._id} book={book} />
           ))}
-          <EmptyStateBook/>
+          {email && <EmptyStateBook/>}
         </div>
       </div>
     </>
