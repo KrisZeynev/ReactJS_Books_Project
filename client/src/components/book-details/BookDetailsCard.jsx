@@ -8,6 +8,8 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 
+import { Link } from "react-router";
+
 export default function BookDetailsCard({ book }) {
   const { email, _id } = useContext(UserContext);
 
@@ -75,13 +77,16 @@ export default function BookDetailsCard({ book }) {
 
           <hr className="my-6 border-gray-300 w-3/4 mx-auto" />
 
-          <button
-            className="flex items-center space-x-2 px-6 py-3 bg-indigo-500 text-white rounded-lg shadow-md 
-                     hover:bg-indigo-600 hover:scale-105 transition-transform duration-200 mx-auto"
-          >
-            <FaInfoCircle />
-            <span>Details</span>
-          </button>
+          <div className="flex justify-center">
+            <Link
+              to={`/catalog/${book._id}/details`}
+              className="flex items-center space-x-2 px-6 py-3 bg-indigo-500 text-white rounded-lg shadow-md 
+               hover:bg-indigo-600 hover:scale-105 transition-transform duration-200"
+            >
+              <FaInfoCircle />
+              <span>Details</span>
+            </Link>
+          </div>
         </div>
 
         {email && (
