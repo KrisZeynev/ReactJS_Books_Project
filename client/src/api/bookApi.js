@@ -27,6 +27,26 @@ export const useHomeBooks = () => {
   return books;
 };
 
+export const useBook = (id) => {
+  const [book, setBook] = useState(null);
+
+  useEffect(() => {
+    const fetchBook = async () => {
+      try {
+        const response = await fetch(`${baseUrl}/${id}`);
+        const data = await response.json();
+        setBook(data);
+      } catch (error) {
+        console.error("Error fetching book:", error);
+      }
+    };
+
+    fetchBook();
+  }, [id]);
+
+  return book;
+};
+
 export const useCatalog = () => {
   const [catalog, setCatalog] = useState([]);
 
