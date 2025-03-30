@@ -83,7 +83,7 @@ export default function CreateBook() {
       return; 
     }
 
-    const baseUrl = 'http://localhost:3030/data/catalog';
+    const baseUrl = 'http://localhost:3030/data/bookCatalog';
 
     try {
       const response = await fetch(baseUrl, {

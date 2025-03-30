@@ -18,7 +18,7 @@ export default function Catalog() {
       <SearchBar />
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 gap-x-25 place-items-center mt-10 mb-10">
-          {allBooks.map((book) => (
+          {allBooks.length > 0 && allBooks.map((book) => (
             <BookDetailsCard key={book._id} book={book} />
           ))}
           {email && <EmptyStateBook/>}

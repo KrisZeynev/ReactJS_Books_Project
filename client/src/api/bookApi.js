@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const baseUrl = "http://localhost:3030/data/catalog";
+const baseUrl = "http://localhost:3030/data/bookCatalog";
 
 export const useHomeBooks = () => {
   const [books, setBooks] = useState([]);
@@ -8,12 +8,13 @@ export const useHomeBooks = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const searchParams = new URLSearchParams({
-          sortBy: "_createdOn desc",
-          pageSize: 3,
-        });
+        // const searchParams = new URLSearchParams({
+        //   sortBy: "_createdOn desc",
+        //   pageSize: 3,
+        // });
 
-        const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
+        // const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
+        const response = await fetch(baseUrl);
         const data = await response.json();
         setBooks(data);
       } catch (error) {
@@ -53,11 +54,12 @@ export const useCatalog = () => {
   useEffect(() => {
     const fetchCatalog = async () => {
       try {
-        const searchParams = new URLSearchParams({
-          sortBy: "_createdOn desc",
-        });
+        // const searchParams = new URLSearchParams({
+        //   sortBy: "_createdOn desc",
+        // });
 
-        const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
+        // const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
+        const response = await fetch(baseUrl);
         const data = await response.json();
         setCatalog(data);
       } catch (error) {
