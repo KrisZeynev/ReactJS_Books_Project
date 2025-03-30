@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import BookDetailsCard from "../book-details/BookDetailsCard";
 import SearchBar from "../search-bar/SearchBar";
 import EmptyStateBook from "./EmptyStateBook";
@@ -9,6 +9,15 @@ export default function Catalog() {
   const { email } = useContext(UserContext)
 
   const allBooks = useCatalog();
+  const [books, setBooks] = useState([]);
+  
+  useEffect(() => {
+    setBooks(allBooks);
+  }, []);
+
+  const handleDelete = (bookId) => {
+    setBooks((prevBooks) => prevBooks.filter((book) => book._id !== bookId));
+  };
 
   return (
     <>
@@ -19,7 +28,7 @@ export default function Catalog() {
       <div className="flex justify-center">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 gap-x-25 place-items-center mt-10 mb-10">
           {allBooks.length > 0 && allBooks.map((book) => (
-            <BookDetailsCard key={book._id} book={book} />
+            <BookDetailsCard key={book._id} book={book} handleDelete={handleDelete} />
           ))}
           {email && <EmptyStateBook/>}
         </div>

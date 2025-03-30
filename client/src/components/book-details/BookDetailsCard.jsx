@@ -9,11 +9,9 @@ import {
 } from "react-icons/fa";
 
 import { Link, useNavigate } from "react-router";
-// import { useDeleteBook } from "../../api/bookApi";
 
-export default function BookDetailsCard({ book }) {
+export default function BookDetailsCard({ book, handleDelete }) {
   const { email, _id, accessToken } = useContext(UserContext);
-  // const deleteBook = useDeleteBook();
   const navigate = useNavigate();
   const baseUrl = "http://localhost:3030/data/bookCatalog";
 
@@ -41,7 +39,9 @@ export default function BookDetailsCard({ book }) {
 
       await response.json();
 
-      navigate("/catalog");
+      handleDelete(book._id)
+
+      // navigate("/catalog");
     } catch (error) {
       console.error("Error deleting book:", error);
     }
