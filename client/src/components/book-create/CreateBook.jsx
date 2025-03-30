@@ -94,8 +94,8 @@ export default function CreateBook() {
         },
         body: JSON.stringify({ title, description, author, genre, publicationYear, pages, isbn, image }),
       });
-      console.log(response);
-      console.log('good to go');
+      // console.log(response);
+      // console.log('good to go');
       navigate(-1)
       
     } catch (error) {

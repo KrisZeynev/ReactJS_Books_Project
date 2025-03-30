@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import {
   FaEdit,
@@ -8,10 +8,44 @@ import {
   FaInfoCircle,
 } from "react-icons/fa";
 
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+// import { useDeleteBook } from "../../api/bookApi";
 
 export default function BookDetailsCard({ book }) {
-  const { email, _id } = useContext(UserContext);
+  const { email, _id, accessToken } = useContext(UserContext);
+  // const deleteBook = useDeleteBook();
+  const navigate = useNavigate();
+  const baseUrl = "http://localhost:3030/data/bookCatalog";
+
+  const deleteClickHandler = async () => {
+    const hasConfirm = confirm(
+      `Are you sure you want to delete ${book.title} book?`
+    );
+
+    if (!hasConfirm) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${baseUrl}/${book._id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Authorization": accessToken,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to delete the book");
+      }
+
+      await response.json();
+
+      navigate("/catalog");
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
+  };
 
   // className="bg-white shadow-lg rounded-lg p-4 w-80 h-111"
 
@@ -50,6 +84,7 @@ export default function BookDetailsCard({ book }) {
                     <button
                       className="flex items-center space-x-2 px-5 py-2 bg-red-500 text-white rounded-lg shadow-md 
                             hover:bg-red-600 hover:scale-105 transition-transform duration-200"
+                      onClick={deleteClickHandler}
                     >
                       <FaTrash />
                       <span>Delete</span>
