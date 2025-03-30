@@ -1,13 +1,23 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import BookDetailsCard from "../book-details/BookDetailsCard";
 import { useHomeBooks } from "../../api/bookApi";
 
 export default function Home() {
   const { email } = useContext(UserContext);
+  const featuredBooksData = useHomeBooks();
 
-  const featuredBooks = useHomeBooks();
-  
+  const [featuredBooks, setFeaturedBooks] = useState([]);
+
+  useEffect(() => {
+    setFeaturedBooks(featuredBooksData);
+  }, [featuredBooksData]);
+
+  const handleDelete = (bookId) => {
+    setFeaturedBooks((prevBooks) =>
+      prevBooks.filter((book) => book._id !== bookId)
+    );
+  };
 
   return (
     <div className="flex flex-col items-center justify-center text-center p-6">
@@ -20,13 +30,19 @@ export default function Home() {
 
       <h2 className="text-2xl font-semibold mb-4">Featured Books</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 gap-x-25">
-        {featuredBooks.length > 0 ? featuredBooks.map((book) => (
-          <BookDetailsCard key={book._id} book={book} />
-        )) : 
-        <h1 className="text-2xl font-semibold text-gray-500 mt-6 bg-red-100 px-6 py-3 rounded-lg border border-red-400 shadow-md">
-          No books found!
-        </h1>
-        }
+        {featuredBooks.length > 0 ? (
+          featuredBooks.map((book) => (
+            <BookDetailsCard
+              key={book._id}
+              book={book}
+              handleDelete={handleDelete}
+            />
+          ))
+        ) : (
+          <h1 className="text-2xl font-semibold text-gray-500 mt-6 bg-red-100 px-6 py-3 rounded-lg border border-red-400 shadow-md">
+            No books found!
+          </h1>
+        )}
       </div>
       {/* {featuredBooks.length === 0 && (
         <h1 className="text-2xl font-semibold text-gray-500 mt-6 bg-red-100 px-6 py-3 rounded-lg border border-red-400 shadow-md">
