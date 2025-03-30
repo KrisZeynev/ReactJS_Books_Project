@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
+import request from "../utils/request";
 
 const baseUrl = "http://localhost:3030/data/bookCatalog";
 
@@ -74,24 +75,24 @@ export const useCatalog = () => {
   return catalog;
 };
 
-// export const useDeleteBook = (id) => {
-//   const { accessToken } = useContext(UserContext);
-//   const deleteBook = async () => {
-//     try {
-//       const response = await fetch(`${baseUrl}/${id}`, {
-//         method: "DELETE",
-//         headers: {
-//           "Content-Type": "application/json",
-//           "X-Authorization": accessToken,
-//         },
-//       });
-//       if (!response.ok) {
-//         throw new Error("Unable to delete the book");
-//       }
-//       return await response.json();
-//     } catch (error) {
-//       console.error("Error deleting book:", error);
-//     }
-//   };
-//   deleteBook();
-// };
+export const useDeleteBook = (id) => {
+  const { accessToken } = useContext(UserContext);
+  const deleteBook = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Authorization": accessToken,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Unable to delete the book");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
+  };
+  return {deleteBook};
+};

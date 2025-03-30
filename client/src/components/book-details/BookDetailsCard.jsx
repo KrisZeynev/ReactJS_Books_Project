@@ -9,11 +9,13 @@ import {
 } from "react-icons/fa";
 
 import { Link, useNavigate } from "react-router";
+import { useDeleteBook } from "../../api/bookApi";
 
 export default function BookDetailsCard({ book, handleDelete }) {
   const { email, _id, accessToken } = useContext(UserContext);
   const navigate = useNavigate();
   const baseUrl = "http://localhost:3030/data/bookCatalog";
+  const { deleteBook } = useDeleteBook(book._id);
 
   const deleteClickHandler = async () => {
     const hasConfirm = confirm(
@@ -25,26 +27,35 @@ export default function BookDetailsCard({ book, handleDelete }) {
     }
 
     try {
-      const response = await fetch(`${baseUrl}/${book._id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Authorization": accessToken,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("Unable to delete the book");
-      }
-
-      await response.json();
-
-      handleDelete(book._id)
-
-      // navigate("/catalog");
+      const result = await deleteBook();
+      handleDelete(book._id);
     } catch (error) {
       console.error("Error deleting book:", error);
     }
+
+    // navigate("/catalog");
+
+    // try {
+    //   const response = await fetch(`${baseUrl}/${book._id}`, {
+    //     method: "DELETE",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "X-Authorization": accessToken,
+    //     },
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error("Unable to delete the book");
+    //   }
+
+    //   await response.json();
+
+    //   handleDelete(book._id)
+
+    //   // navigate("/catalog");
+    // } catch (error) {
+    //   console.error("Error deleting book:", error);
+    // }
   };
 
   // className="bg-white shadow-lg rounded-lg p-4 w-80 h-111"
