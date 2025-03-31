@@ -195,7 +195,7 @@ export default function BookDetails() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
         {comments.length > 0 ? (
           comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} />
+            <Comment key={comment._id} comment={comment} fetchComments={fetchComments} />
           ))
         ) : (
           <div className="col-span-full bg-gray-100 p-3 rounded-lg text-center">
