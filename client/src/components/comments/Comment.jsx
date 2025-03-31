@@ -35,6 +35,10 @@ export default function Comment({ comment, fetchComments }) {
     }
   };
 
+  const editClickHandler = async () => {
+    console.log('edit');
+  }
+
   return (
     <div className="bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md">
       <div className="flex-1">
@@ -44,13 +48,14 @@ export default function Comment({ comment, fetchComments }) {
       {email && (
         <div className="flex flex-col gap-2 ml-5">
           <button
-            disabled={isCreator}
+            disabled={!isCreator}
             className={`px-4 py-2 text-base ${!isCreator ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'} rounded-lg shadow-sm transition-all`}
+            onClick={editClickHandler}
           >
             Edit
           </button>
           <button
-            disabled={!isCreator} // only allow deleting if the user is the creator
+            disabled={!isCreator}
             className={`px-4 py-2 text-base ${!isCreator ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-red-500 text-white hover:bg-red-600 cursor-pointer'} rounded-lg shadow-sm transition-all`}
             onClick={deleteClickHandler}
           >
