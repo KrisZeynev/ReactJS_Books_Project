@@ -40,6 +40,7 @@ export default function BookDetails() {
 
   const baseCommentsUrl = "http://localhost:3030/data/bookComments";
   const [comments, setComments] = useState([]);
+
   const fetchComments = async () => {
     try {
       const searchParams = new URLSearchParams({
@@ -61,7 +62,7 @@ export default function BookDetails() {
 
   useEffect(() => {
     fetchComments();
-  }, [book]);
+  }, [book, fetchComments]);
 
   if (!book) {
     return <p className="text-center text-gray-500">Loading...</p>;
