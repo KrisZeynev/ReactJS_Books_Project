@@ -26,7 +26,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
     const { comment } = Object.fromEntries(new FormData(e.target));
 
     try {
-      const response = await fetch(baseCommentsUrl, {
+      await fetch(baseCommentsUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,8 +38,10 @@ export default function BookDetailsCard({ book, handleDelete }) {
           email
         }),
       });
-      const result = await response.json();
-      console.log(result);
+      // const result = await response.json();
+      // console.log(result);
+      setComment("");
+      e.target.reset()
     } catch (error) {
       console.log(error);
     }

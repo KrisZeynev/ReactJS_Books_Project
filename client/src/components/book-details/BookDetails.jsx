@@ -110,6 +110,7 @@ export default function BookDetails() {
         </form>
       </div>
     </section>
+    
   );
 }
 
