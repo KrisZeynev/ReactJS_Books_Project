@@ -1,9 +1,36 @@
 import { useParams } from "react-router";
 import { useBook } from "../../api/bookApi";
+import { useBookComments } from "../../api/commentsApi";
+import { useEffect, useState } from "react";
 
 export default function BookDetails() {
   const { id } = useParams();
   const book = useBook(id);
+
+  const baseCommentsUrl = "http://localhost:3030/data/bookComments";
+  const [comments, setComments] = useState([]);
+  const fetchComments = async () => {
+    try {
+      const searchParams = new URLSearchParams({
+        where: `bookId="${book._id}"`,
+      });
+
+      const res = await fetch(`${baseCommentsUrl}?${searchParams.toString()}`);
+      if (!res.ok) {
+        throw new Error("Error with fetch");
+      }
+
+      const result = await res.json();
+      setComments(result);
+      // console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, [book]);
 
   if (!book) {
     return <p className="text-center text-gray-500">Loading...</p>;
@@ -53,10 +80,20 @@ export default function BookDetails() {
       <div className="mt-6 border-t pt-4">
         <h3 className="text-lg font-semibold mb-2">Comments</h3>
         <div className="space-y-2">
-          <div className="bg-gray-100 p-3 rounded-lg">
-            <p className="text-gray-700">This book is amazing!</p>
-            <span className="text-xs text-gray-500">by user@example.com</span>
-          </div>
+          {comments.length > 0 ? (
+            comments.map((comment) => (
+              <div key={comment._id} className="bg-gray-100 p-3 rounded-lg">
+                <p className="text-gray-700">{comment.comment}</p>
+                <span className="text-xs text-gray-500">
+                  by {comment.email}
+                </span>
+              </div>
+            ))
+          ) : (
+            <div className="bg-gray-100 p-3 rounded-lg">
+              <p className="text-gray-700">No comments have been added yet!</p>
+            </div>
+          )}
         </div>
       </div>
 

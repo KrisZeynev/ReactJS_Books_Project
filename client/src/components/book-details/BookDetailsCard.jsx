@@ -35,6 +35,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
         body: JSON.stringify({
           comment,
           bookId: book._id,
+          email
         }),
       });
       const result = await response.json();
@@ -62,8 +63,6 @@ export default function BookDetailsCard({ book, handleDelete }) {
   };
 
   const likeClickHandler = async () => {
-    console.log(book);
-
     const hasLiked = book.likes.includes(_id);
 
     try {
