@@ -30,9 +30,8 @@ export default function BookDetails() {
           email,
         }),
       });
-      // const result = await response.json();
-      // console.log(result);
       setComment("");
+      fetchComments();
       e.target.reset();
     } catch (error) {
       console.log(error);
@@ -55,7 +54,6 @@ export default function BookDetails() {
 
       const result = await res.json();
       setComments(result);
-      // console.log(result);
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +61,7 @@ export default function BookDetails() {
 
   useEffect(() => {
     fetchComments();
-  }, [book, fetchComments]);
+  }, [book]);
 
   if (!book) {
     return <p className="text-center text-gray-500">Loading...</p>;
