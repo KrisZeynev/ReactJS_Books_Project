@@ -127,7 +127,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
                     </Link>
                     <button
                       className="flex items-center space-x-2 px-5 py-2 bg-red-500 text-white rounded-lg shadow-md 
-                            hover:bg-red-600 hover:scale-105 transition-transform duration-200"
+                            hover:bg-red-600 hover:scale-105 transition-transform duration-200 cursor-pointer"
                       onClick={deleteClickHandler}
                     >
                       <FaTrash />
@@ -137,16 +137,16 @@ export default function BookDetailsCard({ book, handleDelete }) {
                 ) : (
                   <>
                     <button
-                      className="flex items-center space-x-2 px-5 py-2 bg-green-500 text-white rounded-lg shadow-md 
-                            hover:bg-green-600 hover:scale-105 transition-transform duration-200"
+                      className="flex items-center space-x-2 px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md 
+                            hover:bg-blue-600 hover:scale-105 transition-transform duration-200 cursor-pointer"
                       onClick={likeClickHandler}
                     >
                       <FaThumbsUp />
                       <span>Like</span>
                     </button>
                     <button
-                      className="flex items-center space-x-2 px-5 py-2 bg-gray-500 text-white rounded-lg shadow-md 
-                            hover:bg-gray-600 hover:scale-105 transition-transform duration-200"
+                      className="flex items-center space-x-2 px-5 py-2 bg-red-500 text-white rounded-lg shadow-md 
+                            hover:bg-red-600 hover:scale-105 transition-transform duration-200 cursor-pointer"
                     >
                       <FaThumbsDown />
                       <span>Dislike</span>
