@@ -78,22 +78,13 @@ export default function BookDetails() {
         </div>
       </div>
 
-      {/* <div className="mt-6 border-t pt-4">
-        <h3 className="text-lg font-semibold mb-2">Comments</h3>
-        <div className="space-y-2">
-          {comments.length > 0 ? (
-            comments.map((comment) => (
-              <Comment key={comment._id} comment={comment} />
-            ))
-          ) : (
-            <div className="bg-gray-100 p-3 rounded-lg">
-              <p className="text-gray-700">No comments have been added yet!</p>
-            </div>
-          )}
-        </div>
-      </div> */}
+      <div className="flex items-center my-6">
+        <div className="flex-grow border-t border-gray-800"></div>
+        <span className="px-3 text-gray-900 text-sm">Comments</span>
+        <div className="flex-grow border-t border-gray-800"></div>
+      </div>
 
-      <div className="mt-6 border-t pt-4">
+      <div className="mt-6 pt-4">
         <h3 className="text-lg font-semibold mb-2">Comments</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {comments.length > 0 ? (
@@ -106,19 +97,6 @@ export default function BookDetails() {
             </div>
           )}
         </div>
-      </div>
-
-      <div className="mt-6 border-t pt-4">
-        <h3 className="text-lg font-semibold mb-2">Add a Comment</h3>
-        <form className="flex flex-col gap-3">
-          <textarea
-            className="p-2 border rounded-lg"
-            placeholder="Write your comment..."
-          ></textarea>
-          <button className="px-4 py-2 bg-green-500 text-white rounded-lg">
-            Submit
-          </button>
-        </form>
       </div>
     </section>
   );
