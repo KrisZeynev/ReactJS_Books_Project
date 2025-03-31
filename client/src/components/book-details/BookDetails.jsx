@@ -55,7 +55,8 @@ export default function BookDetails() {
       const result = await res.json();
       setComments(result);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      return <p className="text-center text-gray-500">Failed to load comments. Please try again.</p>;
     }
   };
 
@@ -191,7 +192,7 @@ export default function BookDetails() {
         <div className="flex-grow border-t border-gray-800"></div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
         {comments.length > 0 ? (
           comments.map((comment) => (
             <Comment key={comment._id} comment={comment} />
