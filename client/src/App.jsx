@@ -19,6 +19,7 @@ import About from "./components/about-page/About";
 import CreateBook from "./components/book-create/CreateBook";
 import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
+import BookEdit from "./components/book-edit/BookEdit";
 
 function App() {
   // const [authData, setAuthData] = useState({});
@@ -57,6 +58,7 @@ function App() {
               <Route path="/logout" element={<Logout />} />
               <Route path="/catalog/preferences" element={<BookPreferences />} />
               <Route path="/catalog/create" element={<CreateBook />} />
+              <Route path="/catalog/:id/edit" element={<BookEdit />} />
               <Route path="/catalog/:id/details" element={<BookDetails />} />
             </Route>
 

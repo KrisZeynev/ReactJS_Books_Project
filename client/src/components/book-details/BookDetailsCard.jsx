@@ -85,13 +85,13 @@ export default function BookDetailsCard({ book, handleDelete }) {
               <div className="flex justify-center space-x-4">
                 {book._ownerId === _id ? (
                   <>
-                    <button
+                    <Link to={`/catalog/${book._id}/edit`}
                       className="flex items-center space-x-2 px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md 
                             hover:bg-blue-600 hover:scale-105 transition-transform duration-200"
                     >
                       <FaEdit />
                       <span>Edit</span>
-                    </button>
+                    </Link>
                     <button
                       className="flex items-center space-x-2 px-5 py-2 bg-red-500 text-white rounded-lg shadow-md 
                             hover:bg-red-600 hover:scale-105 transition-transform duration-200"
