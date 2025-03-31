@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import {
   FaEdit,
@@ -16,6 +16,39 @@ export default function BookDetailsCard({ book, handleDelete }) {
   const navigate = useNavigate();
   const baseUrl = "http://localhost:3030/data/bookCatalog";
   const { deleteBook } = useDeleteBook(book._id);
+  
+  const [comment, setComment] = useState();
+
+  const handleCommentSubmit = async (e) => {
+    // e.preventDefault();
+
+    // if (!comment.trim()) {
+    //   alert("Please enter a comment.");
+    //   return;
+    // }
+
+    // try {
+    //   const response = await fetch(`http://localhost:3030/data/bookCatalog/${book._id}`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "X-Authorization": accessToken,
+    //     },
+    //     body: JSON.stringify({
+    //       comments: [...(book.comments || []), { userId: _id, text: comment, date: new Date() }],
+    //     }),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error("Failed to add comment.");
+    //   }
+
+    //   setComment("");
+    //   console.log("Comment added successfully!");
+    // } catch (error) {
+    //   console.error("Error adding comment:", error);
+    // }
+  };
 
   const deleteClickHandler = async () => {
     const hasConfirm = confirm(
@@ -32,33 +65,36 @@ export default function BookDetailsCard({ book, handleDelete }) {
     } catch (error) {
       console.error("Error deleting book:", error);
     }
+  };
 
-    // navigate("/catalog");
-
+  const likeClickHandler = async () => {
+    console.log(book);
+    
+    
+    // const hasLiked = book.likes.includes(_id);
     // try {
     //   const response = await fetch(`${baseUrl}/${book._id}`, {
-    //     method: "DELETE",
+    //     method: "PATCH",
     //     headers: {
     //       "Content-Type": "application/json",
     //       "X-Authorization": accessToken,
     //     },
+    //     body: JSON.stringify({
+    //       likes: hasLiked
+    //         ? book.likes.filter((userId) => userId !== _id)
+    //         : [...book.likes, _id],
+    //     }),
     //   });
 
     //   if (!response.ok) {
-    //     throw new Error("Unable to delete the book");
+    //     throw new Error("Failed to update likes");
     //   }
 
-    //   await response.json();
-
-    //   handleDelete(book._id)
-
-    //   // navigate("/catalog");
+    //   console.log("Like updated successfully!");
     // } catch (error) {
-    //   console.error("Error deleting book:", error);
+    //   console.error("Error updating likes:", error);
     // }
   };
-
-  // className="bg-white shadow-lg rounded-lg p-4 w-80 h-111"
 
   return (
     <>
@@ -85,7 +121,8 @@ export default function BookDetailsCard({ book, handleDelete }) {
               <div className="flex justify-center space-x-4">
                 {book._ownerId === _id ? (
                   <>
-                    <Link to={`/catalog/${book._id}/edit`}
+                    <Link
+                      to={`/catalog/${book._id}/edit`}
                       className="flex items-center space-x-2 px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md 
                             hover:bg-blue-600 hover:scale-105 transition-transform duration-200"
                     >
@@ -106,6 +143,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
                     <button
                       className="flex items-center space-x-2 px-5 py-2 bg-green-500 text-white rounded-lg shadow-md 
                             hover:bg-green-600 hover:scale-105 transition-transform duration-200"
+                      onClick={likeClickHandler}
                     >
                       <FaThumbsUp />
                       <span>Like</span>
@@ -137,18 +175,22 @@ export default function BookDetailsCard({ book, handleDelete }) {
         </div>
 
         {email && (
-          <div id="commentSection">
-            <textarea
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Add a comment"
-            ></textarea>
-            <button
-              type="submit"
-              className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all"
-            >
-              Submit
-            </button>
-          </div>
+          <form id="commentSection" onSubmit={handleCommentSubmit}>
+          <textarea
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="Add a comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            required
+          ></textarea>
+          <button
+            type="submit"
+            className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all"
+          >
+            Submit
+          </button>
+        </form>
+        
         )}
       </div>
     </>
