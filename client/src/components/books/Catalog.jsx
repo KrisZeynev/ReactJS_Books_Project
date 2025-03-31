@@ -30,7 +30,8 @@ export default function Catalog() {
           {books.length > 0 && books.map((book) => (
             <BookDetailsCard key={book._id} book={book} handleDelete={handleDelete} />
           ))}
-          {email && <EmptyStateBook/>}
+          {/* {email && <EmptyStateBook/>} */}
+          <EmptyStateBook/>
         </div>
       </div>
     </>

@@ -30,7 +30,7 @@ function App() {
   });
 
   const userLoginHandler = (resultData) => {
-    setAuthData(resultData)
+    setAuthData(resultData);
     localStorage.setItem("email", resultData.email);
     localStorage.setItem("authData", JSON.stringify(resultData));
     // setAuthData(JSON.parse(localStorage.getItem("authData")));
@@ -56,7 +56,10 @@ function App() {
 
             <Route element={<AuthGuard />}>
               <Route path="/logout" element={<Logout />} />
-              <Route path="/catalog/preferences" element={<BookPreferences />} />
+              <Route
+                path="/catalog/preferences"
+                element={<BookPreferences />}
+              />
               <Route path="/catalog/create" element={<CreateBook />} />
               <Route path="/catalog/:id/edit" element={<BookEdit />} />
             </Route>
@@ -66,7 +69,7 @@ function App() {
               <Route path="/register" element={<Register />} />
             </Route>
 
-              <Route path="/catalog/:id/details" element={<BookDetails />} />
+            <Route path="/catalog/:id/details" element={<BookDetails />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           {/* <BookDetails/> */}

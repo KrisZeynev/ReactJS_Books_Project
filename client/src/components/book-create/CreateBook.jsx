@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 export default function CreateBook() {
   const [errors, setErrors] = useState({});
-  const {accessToken} = useContext(UserContext);
+  const { accessToken } = useContext(UserContext);
   const navigate = useNavigate();
 
   const formRef = useRef(null);
@@ -14,7 +14,7 @@ export default function CreateBook() {
       formRef.current.reset();
     }
     setErrors({});
-  }
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -80,34 +80,45 @@ export default function CreateBook() {
 
     if (Object.keys(fieldErrors).length > 0) {
       setErrors(fieldErrors);
-      return; 
+      return;
     }
 
-    const baseUrl = 'http://localhost:3030/data/bookCatalog';
+    const baseUrl = "http://localhost:3030/data/bookCatalog";
 
     try {
       const response = await fetch(baseUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'X-Authorization': accessToken,
+          "X-Authorization": accessToken,
         },
-        body: JSON.stringify({ title, description, author, genre, publicationYear, pages, isbn, image }),
+        body: JSON.stringify({
+          title,
+          description,
+          author,
+          genre,
+          publicationYear,
+          pages,
+          isbn,
+          image,
+          likes: [],
+          dislikes: []
+        }),
       });
       // console.log(response);
       // console.log('good to go');
-      navigate(-1)
-      
+      navigate(-1);
     } catch (error) {
       console.log(`here: ${error}`);
-      
     }
     // console.log("Form submitted successfully:", { title, description, author, genre, publicationYear, publicationDate, pages, publisher, isbn, image });
   };
 
   return (
     <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10">
-      <h1 className="text-2xl font-semibold mb-4 text-center">Create New Book</h1>
+      <h1 className="text-2xl font-semibold mb-4 text-center">
+        Create New Book
+      </h1>
       <form className="space-y-4" onSubmit={handleFormSubmit} ref={formRef}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="block">
@@ -120,7 +131,9 @@ export default function CreateBook() {
                 errors.title ? "border-red-500" : ""
               }`}
             />
-            {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
+            {errors.title && (
+              <p className="text-red-500 text-sm">{errors.title}</p>
+            )}
           </label>
           <label className="block">
             <span className="text-gray-700">Description</span>
@@ -146,7 +159,9 @@ export default function CreateBook() {
                 errors.author ? "border-red-500" : ""
               }`}
             />
-            {errors.author && <p className="text-red-500 text-sm">{errors.author}</p>}
+            {errors.author && (
+              <p className="text-red-500 text-sm">{errors.author}</p>
+            )}
           </label>
           <label className="block">
             <span className="text-gray-700">Genre</span>
@@ -158,7 +173,9 @@ export default function CreateBook() {
                 errors.genre ? "border-red-500" : ""
               }`}
             />
-            {errors.genre && <p className="text-red-500 text-sm">{errors.genre}</p>}
+            {errors.genre && (
+              <p className="text-red-500 text-sm">{errors.genre}</p>
+            )}
           </label>
           <label className="block">
             <span className="text-gray-700">Publication Year</span>
@@ -184,7 +201,9 @@ export default function CreateBook() {
                 errors.pages ? "border-red-500" : ""
               }`}
             />
-            {errors.pages && <p className="text-red-500 text-sm">{errors.pages}</p>}
+            {errors.pages && (
+              <p className="text-red-500 text-sm">{errors.pages}</p>
+            )}
           </label>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -198,7 +217,9 @@ export default function CreateBook() {
                 errors.isbn ? "border-red-500" : ""
               }`}
             />
-            {errors.isbn && <p className="text-red-500 text-sm">{errors.isbn}</p>}
+            {errors.isbn && (
+              <p className="text-red-500 text-sm">{errors.isbn}</p>
+            )}
           </label>
           <label className="block">
             <span className="text-gray-700">Image</span>
@@ -210,7 +231,9 @@ export default function CreateBook() {
                 errors.image ? "border-red-500" : ""
               }`}
             />
-            {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
+            {errors.image && (
+              <p className="text-red-500 text-sm">{errors.image}</p>
+            )}
           </label>
         </div>
         <div className="flex justify-center mt-4 space-x-4">
