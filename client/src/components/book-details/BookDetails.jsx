@@ -2,6 +2,7 @@ import { useParams } from "react-router";
 import { useBook } from "../../api/bookApi";
 import { useBookComments } from "../../api/commentsApi";
 import { useEffect, useState } from "react";
+import Comment from "../comments/Comment";
 
 export default function BookDetails() {
   const { id } = useParams();
@@ -77,20 +78,30 @@ export default function BookDetails() {
         </div>
       </div>
 
-      <div className="mt-6 border-t pt-4">
+      {/* <div className="mt-6 border-t pt-4">
         <h3 className="text-lg font-semibold mb-2">Comments</h3>
         <div className="space-y-2">
           {comments.length > 0 ? (
             comments.map((comment) => (
-              <div key={comment._id} className="bg-gray-100 p-3 rounded-lg">
-                <p className="text-gray-700">{comment.comment}</p>
-                <span className="text-xs text-gray-500">
-                  by {comment.email}
-                </span>
-              </div>
+              <Comment key={comment._id} comment={comment} />
             ))
           ) : (
             <div className="bg-gray-100 p-3 rounded-lg">
+              <p className="text-gray-700">No comments have been added yet!</p>
+            </div>
+          )}
+        </div>
+      </div> */}
+
+      <div className="mt-6 border-t pt-4">
+        <h3 className="text-lg font-semibold mb-2">Comments</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {comments.length > 0 ? (
+            comments.map((comment) => (
+              <Comment key={comment._id} comment={comment} />
+            ))
+          ) : (
+            <div className="col-span-full bg-gray-100 p-3 rounded-lg text-center">
               <p className="text-gray-700">No comments have been added yet!</p>
             </div>
           )}
@@ -110,7 +121,6 @@ export default function BookDetails() {
         </form>
       </div>
     </section>
-    
   );
 }
 
