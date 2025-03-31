@@ -59,7 +59,6 @@ function App() {
               <Route path="/catalog/preferences" element={<BookPreferences />} />
               <Route path="/catalog/create" element={<CreateBook />} />
               <Route path="/catalog/:id/edit" element={<BookEdit />} />
-              <Route path="/catalog/:id/details" element={<BookDetails />} />
             </Route>
 
             <Route element={<GuestGuard />}>
@@ -67,6 +66,7 @@ function App() {
               <Route path="/register" element={<Register />} />
             </Route>
 
+              <Route path="/catalog/:id/details" element={<BookDetails />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           {/* <BookDetails/> */}
