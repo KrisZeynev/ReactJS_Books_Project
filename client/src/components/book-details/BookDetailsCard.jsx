@@ -15,39 +15,33 @@ export default function BookDetailsCard({ book, handleDelete }) {
   const { email, _id, accessToken } = useContext(UserContext);
   const navigate = useNavigate();
   const baseUrl = "http://localhost:3030/data/bookCatalog";
+  const baseLikesUrl = "http://localhost:3030/data/bookLikes";
+  const baseCommentsUrl = "http://localhost:3030/data/bookComments";
   const { deleteBook } = useDeleteBook(book._id);
-  
-  const [comment, setComment] = useState();
+
+  const [comment, setComment] = useState("");
 
   const handleCommentSubmit = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
+    const { comment } = Object.fromEntries(new FormData(e.target));
 
-    // if (!comment.trim()) {
-    //   alert("Please enter a comment.");
-    //   return;
-    // }
-
-    // try {
-    //   const response = await fetch(`http://localhost:3030/data/bookCatalog/${book._id}`, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "X-Authorization": accessToken,
-    //     },
-    //     body: JSON.stringify({
-    //       comments: [...(book.comments || []), { userId: _id, text: comment, date: new Date() }],
-    //     }),
-    //   });
-
-    //   if (!response.ok) {
-    //     throw new Error("Failed to add comment.");
-    //   }
-
-    //   setComment("");
-    //   console.log("Comment added successfully!");
-    // } catch (error) {
-    //   console.error("Error adding comment:", error);
-    // }
+    try {
+      const response = await fetch(baseCommentsUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Authorization": accessToken,
+        },
+        body: JSON.stringify({
+          comment,
+          bookId: book._id,
+        }),
+      });
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deleteClickHandler = async () => {
@@ -69,31 +63,31 @@ export default function BookDetailsCard({ book, handleDelete }) {
 
   const likeClickHandler = async () => {
     console.log(book);
-    
-    
-    // const hasLiked = book.likes.includes(_id);
-    // try {
-    //   const response = await fetch(`${baseUrl}/${book._id}`, {
-    //     method: "PATCH",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "X-Authorization": accessToken,
-    //     },
-    //     body: JSON.stringify({
-    //       likes: hasLiked
-    //         ? book.likes.filter((userId) => userId !== _id)
-    //         : [...book.likes, _id],
-    //     }),
-    //   });
 
-    //   if (!response.ok) {
-    //     throw new Error("Failed to update likes");
-    //   }
+    const hasLiked = book.likes.includes(_id);
 
-    //   console.log("Like updated successfully!");
-    // } catch (error) {
-    //   console.error("Error updating likes:", error);
-    // }
+    try {
+      const response = await fetch(baseLikesUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Authorization": accessToken,
+        },
+        body: {
+          likes: hasLiked
+            ? book.likes.filter((userId) => userId !== _id)
+            : [...book.likes, _id],
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update likes");
+      }
+
+      console.log("Like updated successfully!");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -176,21 +170,30 @@ export default function BookDetailsCard({ book, handleDelete }) {
 
         {email && (
           <form id="commentSection" onSubmit={handleCommentSubmit}>
-          <textarea
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="Add a comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            required
-          ></textarea>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all"
-          >
-            Submit
-          </button>
-        </form>
-        
+            <textarea
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Add a comment"
+              name="comment"
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              required
+            ></textarea>
+            <div className="flex justify-center space-x-4">
+              <button
+                type="submit"
+                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-all"
+                onClick={() => setComment("")}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         )}
       </div>
     </>
