@@ -10,6 +10,7 @@ import {
 
 import { Link, useNavigate } from "react-router";
 import { useDeleteBook } from "../../api/bookApi";
+import CommentCreate from "../comments-create/CommentCreate";
 
 export default function BookDetailsCard({ book, handleDelete }) {
   const { email, _id, accessToken } = useContext(UserContext);
@@ -35,13 +36,13 @@ export default function BookDetailsCard({ book, handleDelete }) {
         body: JSON.stringify({
           comment,
           bookId: book._id,
-          email
+          email,
         }),
       });
       // const result = await response.json();
       // console.log(result);
       setComment("");
-      e.target.reset()
+      e.target.reset();
     } catch (error) {
       console.log(error);
     }
@@ -170,31 +171,11 @@ export default function BookDetailsCard({ book, handleDelete }) {
         </div>
 
         {email && (
-          <form id="commentSection" onSubmit={handleCommentSubmit}>
-            <textarea
-              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Add a comment"
-              name="comment"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              required
-            ></textarea>
-            <div className="flex justify-center space-x-4">
-              <button
-                type="submit"
-                className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-all"
-              >
-                Submit
-              </button>
-              <button
-                type="button"
-                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition-all"
-                onClick={() => setComment("")}
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+          <CommentCreate
+            handleCommentSubmit={handleCommentSubmit}
+            comment={comment}
+            setComment={setComment}
+          />
         )}
       </div>
     </>
