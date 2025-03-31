@@ -4,11 +4,12 @@ import { UserContext } from "../../contexts/UserContext";
 const baseCommentsUrl = "http://localhost:3030/data/bookComments";
 
 export default function Comment({ comment, fetchComments }) {
-  const { email, accessToken } = useContext(UserContext);
+  const { email, accessToken, _id } = useContext(UserContext);
+  const isCreator = comment._ownerId === _id;
 
   const deleteClickHandler = async () => {
     const hasConfirm = confirm(
-      `Are you sure you want to delete ${comment.title} book?`
+      `Are you sure you want to delete the comment?`
     );
 
     if (!hasConfirm) {
@@ -24,13 +25,13 @@ export default function Comment({ comment, fetchComments }) {
         },
       });
       if (!response.ok) {
-        throw new Error("Unable to delete the book");
+        throw new Error("Unable to delete the comment");
       }
 
       await response.json();
-      fetchComments()
+      fetchComments();
     } catch (error) {
-      console.error("Error deleting book:", error);
+      console.error("Error deleting comment:", error);
     }
   };
 
@@ -41,16 +42,21 @@ export default function Comment({ comment, fetchComments }) {
         <span className="text-sm text-gray-500">by {comment.email}</span>
       </div>
       {email && (
-        <>
-          <div className="flex flex-col gap-2 ml-5">
-            <button className="px-4 py-2 text-base bg-blue-500 text-white rounded-lg shadow-sm hover:bg-blue-600 transition-all">
-              Edit
-            </button>
-            <button className="px-4 py-2 text-base bg-red-500 text-white rounded-lg shadow-sm hover:bg-red-600 transition-all" onClick={deleteClickHandler}>
-              Delete
-            </button>
-          </div>
-        </>
+        <div className="flex flex-col gap-2 ml-5">
+          <button
+            disabled={isCreator}
+            className={`px-4 py-2 text-base ${!isCreator ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'} rounded-lg shadow-sm transition-all`}
+          >
+            Edit
+          </button>
+          <button
+            disabled={!isCreator} // only allow deleting if the user is the creator
+            className={`px-4 py-2 text-base ${!isCreator ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-red-500 text-white hover:bg-red-600 cursor-pointer'} rounded-lg shadow-sm transition-all`}
+            onClick={deleteClickHandler}
+          >
+            Delete
+          </button>
+        </div>
       )}
     </div>
   );
