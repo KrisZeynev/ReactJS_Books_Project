@@ -55,12 +55,11 @@ export const useCatalog = () => {
   useEffect(() => {
     const fetchCatalog = async () => {
       try {
-        // const searchParams = new URLSearchParams({
-        //   sortBy: "_createdOn desc",
-        // });
+        const searchParams = new URLSearchParams({
+          sortBy: "_createdOn desc",
+        });
 
-        // const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
-        const response = await fetch(baseUrl);
+        const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
         const data = await response.json();
         setCatalog(data);
       } catch (error) {
