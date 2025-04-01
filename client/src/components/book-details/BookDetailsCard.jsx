@@ -63,54 +63,39 @@ export default function BookDetailsCard({ book, handleDelete }) {
     }
   };
 
-  const [isLiked, setIsLiked] = useState(false);
-  const [isDisliked, setIsDisliked] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
+  // const [isDisliked, setIsDisliked] = useState(false);
   const [reaction, setReaction] = useState("");
+  const [likes, setLikes] = useState(100);
+  const [dislikes, setDislikes] = useState(5);
 
   const handleLike = () => {
-    setReaction(reaction === "like" ? "" : "like");
+    if (reaction === "like") {
+      setReaction("");
+      setLikes(likes - 1);
+    } else {
+      setReaction("like");
+      setLikes(likes + 1);
+      if (reaction === "dislike") setDislikes(dislikes - 1);
+    }
   };
 
   const handleDislike = () => {
-    setReaction(reaction === "dislike" ? "" : "dislike");
-  };
-
-  const dislikeClickHandler = () => {
-    setIsDisliked(!isDisliked);
-    setIsLiked(false);
-  };
-
-  // todo
-  const likeClickHandler = async (e) => {
-    setIsDisliked(isDisliked);
-    setIsLiked(true);
-    // e.preventDefault();
-    // const { comment } = Object.fromEntries(new FormData(e.target));
-    // try {
-    //   await fetch(baseCommentsUrl, {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "X-Authorization": accessToken,
-    //     },
-    //     body: JSON.stringify({
-    //       comment,
-    //       bookId: book._id,
-    //       email,
-    //     }),
-    //   });
-    //   setComment("");
-    //   e.target.reset();
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    if (reaction === "dislike") {
+      setReaction("");
+      setDislikes(dislikes - 1);
+    } else {
+      setReaction("dislike");
+      setDislikes(dislikes + 1);
+      if (reaction === "like") setLikes(likes - 1);
+    }
   };
 
   return (
     <>
       <div
         key={book._id}
-        className={`bg-white shadow-lg rounded-lg p-4 w-80 ${
+        className={`bg-white shadow-lg rounded-lg p-4 w-82 ${
           email ? "h-180" : "h-111"
         }`}
         // className="bg-white shadow-lg rounded-lg p-4 w-80 h-65"
@@ -162,7 +147,9 @@ export default function BookDetailsCard({ book, handleDelete }) {
                       onClick={handleLike}
                     >
                       <FaThumbsUp />
-                      <span>{reaction === "like" ? "Liked" : "Like"}</span>
+                      <span>
+                        {reaction === "like" ? "Liked" : "Like"} ({likes})
+                      </span>
                     </button>
                     <button
                       className={`flex items-center space-x-2 px-5 py-2 text-white rounded-lg shadow-md 
@@ -176,7 +163,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
                     >
                       <FaThumbsDown />
                       <span>
-                        {reaction === "dislike" ? "Disliked" : "Dislike"}
+                        {reaction === "dislike" ? "Disliked" : "Dislike"} ({dislikes})
                       </span>
                     </button>
                   </>
