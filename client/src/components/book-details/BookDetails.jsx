@@ -9,7 +9,7 @@ import CommentCreate from "../comments-create/CommentCreate";
 export default function BookDetails() {
   const { id } = useParams();
   const book = useBook(id);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { email, _id, accessToken } = useContext(UserContext);
 
   const [comment, setComment] = useState("");
@@ -149,9 +149,6 @@ export default function BookDetails() {
 
         {email && (
           <div className="mt-6 pt-4 border-t-4 border-gray-300">
-            <h3 className="text-lg font-semibold mb-2 text-center">
-              Add a Comment
-            </h3>
             <CommentCreate
               handleCommentSubmit={handleCommentSubmit}
               comment={comment}

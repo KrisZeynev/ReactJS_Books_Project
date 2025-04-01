@@ -10,7 +10,7 @@ export default function CommentCreate({
       className="flex flex-col space-y-3"
     >
       <h3 className="text-lg font-semibold mb-2 text-center">Add a Comment</h3>
-      
+
       <textarea
         className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
         placeholder="Write a comment..."
