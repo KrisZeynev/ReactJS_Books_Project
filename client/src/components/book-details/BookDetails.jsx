@@ -1,5 +1,5 @@
-import { Link, useParams } from "react-router";
-import { useBook } from "../../api/bookApi";
+import { Link, useNavigate, useParams } from "react-router";
+import { useBook, useDeleteBook } from "../../api/bookApi";
 import { useBookComments } from "../../api/commentsApi";
 import { useContext, useEffect, useState } from "react";
 import Comment from "../comments/Comment";
@@ -9,9 +9,29 @@ import CommentCreate from "../comments-create/CommentCreate";
 export default function BookDetails() {
   const { id } = useParams();
   const book = useBook(id);
+  const navigate = useNavigate()
   const { email, _id, accessToken } = useContext(UserContext);
 
   const [comment, setComment] = useState("");
+
+  const { deleteBook } = useDeleteBook(book?._id);
+  const deleteClickHandler = async () => {
+    const hasConfirm = confirm(
+      `Are you sure you want to delete ${book.title} book?`
+    );
+
+    if (!hasConfirm) {
+      return;
+    }
+
+    try {
+      await deleteBook();
+      navigate(-1);
+      // handleDelete(book._id);
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
+  };
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
@@ -99,10 +119,16 @@ export default function BookDetails() {
               <div className="mt-4 flex gap-4 flex-wrap">
                 {book._ownerId === _id ? (
                   <>
-                    <Link to={`/catalog/${book._id}/edit`} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+                    <Link
+                      to={`/catalog/${book._id}/edit`}
+                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
+                    >
                       Edit
                     </Link>
-                    <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
+                    <button
+                      onClick={deleteClickHandler}
+                      className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all cursor-pointer"
+                    >
                       Delete
                     </button>
                   </>
