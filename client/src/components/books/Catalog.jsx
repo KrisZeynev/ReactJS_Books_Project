@@ -16,17 +16,14 @@ export default function Catalog() {
 
   const allBooks = useCatalog(category, searchTerm);
 
-
   const searchHandler = (e) => {
     e.preventDefault();
     console.log(category);
     console.log(searchTerm);
-
-  }
+  };
   // search bar end
 
   useEffect(() => {
-    // setBooks([]);
     setBooks(allBooks);
   }, [allBooks]);
 

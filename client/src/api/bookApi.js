@@ -78,7 +78,7 @@ export const useCatalog = (category, searchTerm) => {
     };
 
     fetchCatalog();
-  }, []);
+  }, [category, searchTerm]);
 
   return catalog;
 };
