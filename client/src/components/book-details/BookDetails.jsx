@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { useBook } from "../../api/bookApi";
 import { useBookComments } from "../../api/commentsApi";
 import { useContext, useEffect, useState } from "react";
@@ -99,9 +99,9 @@ export default function BookDetails() {
               <div className="mt-4 flex gap-4 flex-wrap">
                 {book._ownerId === _id ? (
                   <>
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+                    <Link to={`/catalog/${book._id}/edit`} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
                       Edit
-                    </button>
+                    </Link>
                     <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
                       Delete
                     </button>
