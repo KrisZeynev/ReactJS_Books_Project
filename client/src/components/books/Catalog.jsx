@@ -62,9 +62,9 @@ export default function Catalog() {
         />
         <button
           type="submit"
-          className="w-full sm:w-auto p-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800 flex justify-center"
+          // className="w-full sm:w-auto p-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800 flex justify-center"
         >
-          <FaSearch />
+          {/* <FaSearch /> */}
         </button>
       </form>
       <div className="flex justify-center">
