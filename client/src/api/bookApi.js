@@ -49,7 +49,7 @@ export const useBook = (id) => {
   return book;
 };
 
-export const useCatalog = () => {
+export const useCatalog = (option, content) => {
   const [catalog, setCatalog] = useState([]);
 
   useEffect(() => {
@@ -58,6 +58,10 @@ export const useCatalog = () => {
         const searchParams = new URLSearchParams({
           sortBy: "_createdOn desc",
         });
+
+        if (option && content) {
+          searchParams.append("where", `${option} LIKE \"${content}\"`);
+        }
 
         const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
         const data = await response.json();
@@ -92,5 +96,5 @@ export const useDeleteBook = (id) => {
       console.error("Error deleting book:", error);
     }
   };
-  return {deleteBook};
+  return { deleteBook };
 };
