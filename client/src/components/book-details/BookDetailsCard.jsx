@@ -39,8 +39,6 @@ export default function BookDetailsCard({ book, handleDelete }) {
           email,
         }),
       });
-      // const result = await response.json();
-      // console.log(result);
       setComment("");
       e.target.reset();
     } catch (error) {
@@ -65,31 +63,47 @@ export default function BookDetailsCard({ book, handleDelete }) {
     }
   };
 
-  const likeClickHandler = async () => {
-    const hasLiked = book.likes.includes(_id);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
+  const [reaction, setReaction] = useState("");
 
-    try {
-      const response = await fetch(baseLikesUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Authorization": accessToken,
-        },
-        body: {
-          likes: hasLiked
-            ? book.likes.filter((userId) => userId !== _id)
-            : [...book.likes, _id],
-        },
-      });
+  const handleLike = () => {
+    setReaction(reaction === "like" ? "" : "like");
+  };
 
-      if (!response.ok) {
-        throw new Error("Failed to update likes");
-      }
+  const handleDislike = () => {
+    setReaction(reaction === "dislike" ? "" : "dislike");
+  };
 
-      console.log("Like updated successfully!");
-    } catch (error) {
-      console.log(error);
-    }
+  const dislikeClickHandler = () => {
+    setIsDisliked(!isDisliked);
+    setIsLiked(false);
+  };
+
+  // todo
+  const likeClickHandler = async (e) => {
+    setIsDisliked(isDisliked);
+    setIsLiked(true);
+    // e.preventDefault();
+    // const { comment } = Object.fromEntries(new FormData(e.target));
+    // try {
+    //   await fetch(baseCommentsUrl, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "X-Authorization": accessToken,
+    //     },
+    //     body: JSON.stringify({
+    //       comment,
+    //       bookId: book._id,
+    //       email,
+    //     }),
+    //   });
+    //   setComment("");
+    //   e.target.reset();
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   return (
@@ -137,19 +151,33 @@ export default function BookDetailsCard({ book, handleDelete }) {
                 ) : (
                   <>
                     <button
-                      className="flex items-center space-x-2 px-5 py-2 bg-blue-500 text-white rounded-lg shadow-md 
-                            hover:bg-blue-600 hover:scale-105 transition-transform duration-200 cursor-pointer"
-                      onClick={likeClickHandler}
+                      // `${isLiked ? 'bg-blue-500 hover:bg-blue-600' : 'bg-blue-200 hover:bg-blue-300'}`
+                      className={`flex items-center space-x-2 px-5 py-2 text-white rounded-lg shadow-md 
+                        hover:scale-105 transition-transform duration-200 cursor-pointer 
+                        ${
+                          reaction === "like"
+                            ? "bg-blue-500 hover:bg-blue-600"
+                            : "bg-gray-300 hover:bg-gray-400"
+                        }`}
+                      onClick={handleLike}
                     >
                       <FaThumbsUp />
-                      <span>Like</span>
+                      <span>{reaction === "like" ? "Liked" : "Like"}</span>
                     </button>
                     <button
-                      className="flex items-center space-x-2 px-5 py-2 bg-red-500 text-white rounded-lg shadow-md 
-                            hover:bg-red-600 hover:scale-105 transition-transform duration-200 cursor-pointer"
+                      className={`flex items-center space-x-2 px-5 py-2 text-white rounded-lg shadow-md 
+                        hover:scale-105 transition-transform duration-200 cursor-pointer 
+                        ${
+                          reaction === "dislike"
+                            ? "bg-red-500 hover:bg-red-600"
+                            : "bg-gray-300 hover:bg-gray-400"
+                        }`}
+                      onClick={handleDislike}
                     >
                       <FaThumbsDown />
-                      <span>Dislike</span>
+                      <span>
+                        {reaction === "dislike" ? "Disliked" : "Dislike"}
+                      </span>
                     </button>
                   </>
                 )}
