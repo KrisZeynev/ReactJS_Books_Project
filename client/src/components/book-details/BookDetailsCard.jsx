@@ -11,6 +11,7 @@ import {
 import { Link, useNavigate } from "react-router";
 import { useDeleteBook } from "../../api/bookApi";
 import CommentCreate from "../comments-create/CommentCreate";
+import SuccessBanner from "../banners/SuccessBanner";
 
 export default function BookDetailsCard({ book, handleDelete }) {
   const { email, _id, accessToken } = useContext(UserContext);
@@ -22,6 +23,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
 
   const [comment, setComment] = useState("");
 
+  const [successMessage, setSuccessMessage] = useState("");
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     const { comment } = Object.fromEntries(new FormData(e.target));
@@ -41,6 +43,10 @@ export default function BookDetailsCard({ book, handleDelete }) {
       });
       setComment("");
       e.target.reset();
+
+      setSuccessMessage("Comment has been added succesfully!");
+
+      setTimeout(() => setSuccessMessage(""), 2000);
     } catch (error) {
       console.log(error);
     }
@@ -63,119 +69,29 @@ export default function BookDetailsCard({ book, handleDelete }) {
     }
   };
 
-  // const [isLiked, setIsLiked] = useState(false);
-  // const [isDisliked, setIsDisliked] = useState(false);
   const [reaction, setReaction] = useState("");
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
 
-  const handleLike = async () => {
-    try {
-      const response = await fetch(
-        `${baseLikesUrl}?where=bookId%3D%22${book._id}%22%20and%20_ownerId%3D%22${_id}%22`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Authorization": accessToken,
-          },
-        }
-      );
-
-      const existingVotes = await response.json();
-      const existingVote = existingVotes[0];
-
-      if (existingVote) {
-        await fetch(`${baseLikesUrl}/${existingVote._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Authorization": accessToken,
-          },
-          body: JSON.stringify({
-            bookId: book._id,
-            isLiked: reaction !== "like",
-            isDisliked: false,
-          }),
-        });
-
-        setReaction(reaction === "like" ? "" : "like");
-        setLikes(reaction === "like" ? likes - 1 : likes + 1);
-        if (reaction === "dislike") setDislikes(dislikes - 1);
-      } else {
-        await fetch(baseLikesUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Authorization": accessToken,
-          },
-          body: JSON.stringify({
-            bookId: book._id,
-            isLiked: true,
-            isDisliked: false,
-          }),
-        });
-
-        setReaction("like");
-        setLikes(likes + 1);
-      }
-    } catch (error) {
-      console.error("Error handling like:", error);
+  const handleLike = () => {
+    if (reaction === "like") {
+      setReaction("");
+      setLikes(likes - 1);
+    } else {
+      setReaction("like");
+      setLikes(likes + 1);
+      if (reaction === "dislike") setDislikes(dislikes - 1);
     }
   };
 
-  const handleDislike = async () => {
-    try {
-      const response = await fetch(
-        `${baseLikesUrl}?where=bookId%3D%22${book._id}%22%20and%20_ownerId%3D%22${_id}%22`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Authorization": accessToken,
-          },
-        }
-      );
-
-      const existingVotes = await response.json();
-      const existingVote = existingVotes[0];
-
-      if (existingVote) {
-        await fetch(`${baseLikesUrl}/${existingVote._id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Authorization": accessToken,
-          },
-          body: JSON.stringify({
-            bookId: book._id,
-            isLiked: false,
-            isDisliked: reaction !== "dislike",
-          }),
-        });
-
-        setReaction(reaction === "dislike" ? "" : "dislike");
-        setDislikes(reaction === "dislike" ? dislikes - 1 : dislikes + 1);
-        if (reaction === "like") setLikes(likes - 1);
-      } else {
-        await fetch(baseLikesUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Authorization": accessToken,
-          },
-          body: JSON.stringify({
-            bookId: book._id,
-            isLiked: false,
-            isDisliked: true,
-          }),
-        });
-
-        setReaction("dislike");
-        setDislikes(dislikes + 1);
-      }
-    } catch (error) {
-      console.error("Error handling dislike:", error);
+  const handleDislike = () => {
+    if (reaction === "dislike") {
+      setReaction("");
+      setDislikes(dislikes - 1);
+    } else {
+      setReaction("dislike");
+      setDislikes(dislikes + 1);
+      if (reaction === "like") setLikes(likes - 1);
     }
   };
 
@@ -275,11 +191,14 @@ export default function BookDetailsCard({ book, handleDelete }) {
         </div>
 
         {email && (
+          <>{successMessage && (
+            <SuccessBanner message={successMessage} onClose={() => setSuccessMessage("")}/>
+          )}
           <CommentCreate
             handleCommentSubmit={handleCommentSubmit}
             comment={comment}
             setComment={setComment}
-          />
+          /></>
         )}
       </div>
     </>
