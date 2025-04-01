@@ -97,54 +97,65 @@ export default function BookDetails() {
       <h1 className="text-3xl font-bold mb-4 text-center">Book Details</h1>
 
       <div className="bg-white shadow-md rounded-lg p-6">
-        <div className="flex flex-row items-center justify-center md:col-span-7 gap-1">
-          <div className="flex justify-center items-center border-solid ml-8">
-            <img
-              className="w-64 h-full object-cover rounded-lg"
-              src={book.image}
-              alt="Book Cover"
-            />
+        <div id="main" className="flex flex-col justify-center">
+          <div className="flex flex-row items-center justify-center md:col-span-7 gap-1">
+            <div className="flex justify-center items-center border-solid ml-8">
+              <img
+                className="w-64 h-full object-cover rounded-lg"
+                src={book.image}
+                alt="Book Cover"
+              />
+            </div>
+
+            <div className="space-y-2 basis-1/4 ml-18">
+              <h2 className="text-2xl font-semibold">{book.title}</h2>
+              <span className="block text-gray-600">Author: {book.author}</span>
+              <span className="block text-gray-600">Genre: {book.genre}</span>
+              <span className="block text-gray-600">Pages: {book.pages}</span>
+              <span className="block text-gray-600">
+                Year: {book.publicationYear}
+              </span>
+              <span className="block text-gray-600">ISBN: {book.isbn}</span>
+
+              {email && (
+                <div className="mt-4 flex gap-4 flex-wrap">
+                  {book._ownerId === _id ? (
+                    <>
+                      <Link
+                        to={`/catalog/${book._id}/edit`}
+                        className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
+                      >
+                        Edit
+                      </Link>
+                      <button
+                        onClick={deleteClickHandler}
+                        className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all cursor-pointer"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
+                        Like
+                      </button>
+                      <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
+                        Dislike
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
-          <div className="space-y-2 basis-1/4 ml-18">
-            <h2 className="text-2xl font-semibold">{book.title}</h2>
-            <span className="block text-gray-600">Author: {book.author}</span>
-            <span className="block text-gray-600">Genre: {book.genre}</span>
-            <span className="block text-gray-600">
-              Year: {book.publicationYear}
-            </span>
-            <span className="block text-gray-600">ISBN: {book.isbn}</span>
-
-            {email && (
-              <div className="mt-4 flex gap-4 flex-wrap">
-                {book._ownerId === _id ? (
-                  <>
-                    <Link
-                      to={`/catalog/${book._id}/edit`}
-                      className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all"
-                    >
-                      Edit
-                    </Link>
-                    <button
-                      onClick={deleteClickHandler}
-                      className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all cursor-pointer"
-                    >
-                      Delete
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
-                      Like
-                    </button>
-                    <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
-                      Dislike
-                    </button>
-                  </>
-                )}
-              </div>
-            )}
+          <div className="flex items-center my-6">
+            <div className="flex-grow border-t border-gray-800"></div>
+            <span className="px-3 text-gray-900 text-sm">Description</span>
+            <div className="flex-grow border-t border-gray-800"></div>
           </div>
+
+          <span className="flex flex-col items-center">{book.description}</span>
         </div>
 
         {email && (

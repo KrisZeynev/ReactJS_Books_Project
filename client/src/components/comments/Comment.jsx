@@ -80,7 +80,11 @@ export default function Comment({ comment, fetchComments }) {
           )}
         </div>
       ) : (
-        <CommentEdit comment={comment} fetchComments={fetchComments} cancelEdit={cancelEditHandler}/>
+        <CommentEdit
+          comment={comment}
+          fetchComments={fetchComments}
+          cancelEdit={cancelEditHandler}
+        />
       )}
     </>
   );
