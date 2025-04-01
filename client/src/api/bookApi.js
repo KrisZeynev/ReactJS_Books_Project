@@ -96,5 +96,5 @@ export const useDeleteBook = (id) => {
       console.error("Error deleting book:", error);
     }
   };
-  return { deleteBook };
+  return {deleteBook};
 };

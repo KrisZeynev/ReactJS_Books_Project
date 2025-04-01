@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
-export default function SearchBar() {
+export default function SearchBar({ onSearch }) {
   const [category, setCategory] = useState("Title");
   const [searchTerm, setSearchTerm] = useState("");
 
   const searchHandler = (e) => {
     e.preventDefault();
-    console.log(category, searchTerm);
-    setSearchTerm("")
+    onSearch(category, searchTerm);
+    setSearchTerm("");
   };
 
   return (
-    <form onSubmit={searchHandler} className="w-full max-w-md mx-auto flex flex-col sm:flex-row items-center gap-2 bg-white p-3 rounded-lg shadow-md dark:bg-gray-800">
+    <form
+      onSubmit={searchHandler}
+      className="w-full max-w-md mx-auto flex flex-col sm:flex-row items-center gap-2 bg-white p-3 rounded-lg shadow-md dark:bg-gray-800"
+    >
       <select
         className="w-full sm:w-auto p-2 text-sm border rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
         value={category}

@@ -97,7 +97,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
       <div
         key={book._id}
         className={`bg-white shadow-lg rounded-lg p-4 w-80 ${
-          email ? "h-140" : "h-81"
+          email ? "h-172" : "h-111"
         }`}
         // className="bg-white shadow-lg rounded-lg p-4 w-80 h-65"
       >
@@ -105,7 +105,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
           <img
             src={book.image}
             alt={book.title}
-            className="w-full h-40 object-cover rounded-md mb-2"
+            className="w-full h-70 object-contain rounded-md mb-2"
           />
           <h3 className="text-xl font-semibold">{book.title}</h3>
           <p className="text-gray-500">by {book.author}</p>

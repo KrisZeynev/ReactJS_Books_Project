@@ -56,7 +56,11 @@ export default function BookDetails() {
       setComments(result);
     } catch (error) {
       // console.log(error);
-      return <p className="text-center text-gray-500">Failed to load comments. Please try again.</p>;
+      return (
+        <p className="text-center text-gray-500">
+          Failed to load comments. Please try again.
+        </p>
+      );
     }
   };
 
@@ -73,71 +77,16 @@ export default function BookDetails() {
       <h1 className="text-3xl font-bold mb-4 text-center">Book Details</h1>
 
       <div className="bg-white shadow-md rounded-lg p-6">
-        {/* <div className="grid md:grid-cols-12 gap-6 items-center">
-          
-          <div className="flex justify-center md:col-span-4">
+        <div className="flex flex-row items-center justify-center md:col-span-7 gap-1">
+          <div className="flex justify-center items-center border-solid ml-8">
             <img
-              className="w-64 h-64 object-cover rounded-lg"
+              className="w-64 h-full object-cover rounded-lg"
               src={book.image}
               alt="Book Cover"
             />
           </div>
 
-          
-          <div className="flex justify-center md:col-span-1 h-full">
-            <div className="w-[4px] bg-gray-300 h-full"></div>
-          </div>
-
-          
-          <div className="space-y-2 md:col-span-7">
-            <h2 className="text-2xl font-semibold">{book.title}</h2>
-            <span className="block text-gray-600">Author: {book.author}</span>
-            <span className="block text-gray-600">Genre: {book.genre}</span>
-            <span className="block text-gray-600">
-              Year: {book.publicationYear}
-            </span>
-            <span className="block text-gray-600">ISBN: {book.isbn}</span>
-
-            {email && (
-              <div className="mt-4 flex gap-4 flex-wrap">
-                {book._ownerId === _id ? (
-                  <>
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
-                      Edit
-                    </button>
-                    <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
-                      Delete
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all">
-                      Like
-                    </button>
-                    <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">
-                      Dislike
-                    </button>
-                  </>
-                )}
-              </div>
-            )}
-          </div>
-        </div> */}
-        <div className="md:col-span-7 flex flex-row items-center justify-center gap-6">
-          {/* Image */}
-          <div className="flex justify-center">
-            <img
-              className="w-64 h-64 rounded-lg"
-              src={book.image}
-              alt="Book Cover"
-            />
-          </div>
-
-          {/* Vertical Divider */}
-          <div className="h-64 w-[4px] bg-gray-300"></div>
-
-          {/* Book Info + Buttons */}
-          <div className="space-y-2">
+          <div className="space-y-2 basis-1/4 ml-18">
             <h2 className="text-2xl font-semibold">{book.title}</h2>
             <span className="block text-gray-600">Author: {book.author}</span>
             <span className="block text-gray-600">Genre: {book.genre}</span>
@@ -195,7 +144,11 @@ export default function BookDetails() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
         {comments.length > 0 ? (
           comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} fetchComments={fetchComments} />
+            <Comment
+              key={comment._id}
+              comment={comment}
+              fetchComments={fetchComments}
+            />
           ))
         ) : (
           <div className="col-span-full bg-gray-100 p-3 rounded-lg text-center">
