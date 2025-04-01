@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import Comment from "../comments/Comment";
 import { UserContext } from "../../contexts/UserContext";
 import CommentCreate from "../comments-create/CommentCreate";
+import SuccessBanner from "../banners/SuccessBanner";
 
 export default function BookDetails() {
   const { id } = useParams();
@@ -33,6 +34,7 @@ export default function BookDetails() {
     }
   };
 
+  const [successMessage, setSuccessMessage] = useState("");
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
     const { comment } = Object.fromEntries(new FormData(e.target));
@@ -53,6 +55,10 @@ export default function BookDetails() {
       setComment("");
       fetchComments();
       e.target.reset();
+
+      setSuccessMessage("Comment has been added succesfully!");
+
+      setTimeout(() => setSuccessMessage(""), 1000);
     } catch (error) {
       console.log(error);
     }
@@ -159,13 +165,21 @@ export default function BookDetails() {
         </div>
 
         {email && (
-          <div className="mt-6 pt-4 border-t-4 border-gray-300">
-            <CommentCreate
-              handleCommentSubmit={handleCommentSubmit}
-              comment={comment}
-              setComment={setComment}
-            />
-          </div>
+          <>
+            {successMessage && (
+              <SuccessBanner
+                message={successMessage}
+                onClose={() => setSuccessMessage("")}
+              />
+            )}
+            <div className="mt-6 pt-4 border-t-4 border-gray-300">
+              <CommentCreate
+                handleCommentSubmit={handleCommentSubmit}
+                comment={comment}
+                setComment={setComment}
+              />
+            </div>
+          </>
         )}
       </div>
 

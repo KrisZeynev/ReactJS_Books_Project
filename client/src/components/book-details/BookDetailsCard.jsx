@@ -46,7 +46,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
 
       setSuccessMessage("Comment has been added succesfully!");
 
-      setTimeout(() => setSuccessMessage(""), 2000);
+      setTimeout(() => setSuccessMessage(""), 1000);
     } catch (error) {
       console.log(error);
     }
