@@ -66,28 +66,116 @@ export default function BookDetailsCard({ book, handleDelete }) {
   // const [isLiked, setIsLiked] = useState(false);
   // const [isDisliked, setIsDisliked] = useState(false);
   const [reaction, setReaction] = useState("");
-  const [likes, setLikes] = useState(100);
-  const [dislikes, setDislikes] = useState(5);
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
 
-  const handleLike = () => {
-    if (reaction === "like") {
-      setReaction("");
-      setLikes(likes - 1);
-    } else {
-      setReaction("like");
-      setLikes(likes + 1);
-      if (reaction === "dislike") setDislikes(dislikes - 1);
+  const handleLike = async () => {
+    try {
+      const response = await fetch(
+        `${baseLikesUrl}?where=bookId%3D%22${book._id}%22%20and%20_ownerId%3D%22${_id}%22`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": accessToken,
+          },
+        }
+      );
+
+      const existingVotes = await response.json();
+      const existingVote = existingVotes[0];
+
+      if (existingVote) {
+        await fetch(`${baseLikesUrl}/${existingVote._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": accessToken,
+          },
+          body: JSON.stringify({
+            bookId: book._id,
+            isLiked: reaction !== "like",
+            isDisliked: false,
+          }),
+        });
+
+        setReaction(reaction === "like" ? "" : "like");
+        setLikes(reaction === "like" ? likes - 1 : likes + 1);
+        if (reaction === "dislike") setDislikes(dislikes - 1);
+      } else {
+        await fetch(baseLikesUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": accessToken,
+          },
+          body: JSON.stringify({
+            bookId: book._id,
+            isLiked: true,
+            isDisliked: false,
+          }),
+        });
+
+        setReaction("like");
+        setLikes(likes + 1);
+      }
+    } catch (error) {
+      console.error("Error handling like:", error);
     }
   };
 
-  const handleDislike = () => {
-    if (reaction === "dislike") {
-      setReaction("");
-      setDislikes(dislikes - 1);
-    } else {
-      setReaction("dislike");
-      setDislikes(dislikes + 1);
-      if (reaction === "like") setLikes(likes - 1);
+  const handleDislike = async () => {
+    try {
+      const response = await fetch(
+        `${baseLikesUrl}?where=bookId%3D%22${book._id}%22%20and%20_ownerId%3D%22${_id}%22`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": accessToken,
+          },
+        }
+      );
+
+      const existingVotes = await response.json();
+      const existingVote = existingVotes[0];
+
+      if (existingVote) {
+        await fetch(`${baseLikesUrl}/${existingVote._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": accessToken,
+          },
+          body: JSON.stringify({
+            bookId: book._id,
+            isLiked: false,
+            isDisliked: reaction !== "dislike",
+          }),
+        });
+
+        setReaction(reaction === "dislike" ? "" : "dislike");
+        setDislikes(reaction === "dislike" ? dislikes - 1 : dislikes + 1);
+        if (reaction === "like") setLikes(likes - 1);
+      } else {
+        await fetch(baseLikesUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": accessToken,
+          },
+          body: JSON.stringify({
+            bookId: book._id,
+            isLiked: false,
+            isDisliked: true,
+          }),
+        });
+
+        setReaction("dislike");
+        setDislikes(dislikes + 1);
+      }
+    } catch (error) {
+      console.error("Error handling dislike:", error);
     }
   };
 
@@ -163,7 +251,8 @@ export default function BookDetailsCard({ book, handleDelete }) {
                     >
                       <FaThumbsDown />
                       <span>
-                        {reaction === "dislike" ? "Disliked" : "Dislike"} ({dislikes})
+                        {reaction === "dislike" ? "Disliked" : "Dislike"} (
+                        {dislikes})
                       </span>
                     </button>
                   </>
