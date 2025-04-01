@@ -97,7 +97,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
       <div
         key={book._id}
         className={`bg-white shadow-lg rounded-lg p-4 w-80 ${
-          email ? "h-172" : "h-111"
+          email ? "h-180" : "h-111"
         }`}
         // className="bg-white shadow-lg rounded-lg p-4 w-80 h-65"
       >
