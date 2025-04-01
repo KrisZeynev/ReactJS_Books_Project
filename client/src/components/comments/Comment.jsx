@@ -1,16 +1,17 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import CommentCreate from "../comments-create/CommentCreate";
+import CommentEdit from "../comments-edit/CommentEdit";
 
 const baseCommentsUrl = "http://localhost:3030/data/bookComments";
 
 export default function Comment({ comment, fetchComments }) {
   const { email, accessToken, _id } = useContext(UserContext);
   const isCreator = comment._ownerId === _id;
+  const [editing, setEditing] = useState(false);
 
   const deleteClickHandler = async () => {
-    const hasConfirm = confirm(
-      `Are you sure you want to delete the comment?`
-    );
+    const hasConfirm = confirm(`Are you sure you want to delete the comment?`);
 
     if (!hasConfirm) {
       return;
@@ -36,33 +37,75 @@ export default function Comment({ comment, fetchComments }) {
   };
 
   const editClickHandler = async () => {
-    console.log('edit');
-  }
+    console.log("edit");
+    setEditing(true);
+    // try {
+    //   const response = await fetch(`${baseCommentsUrl}/${comment._id}`, {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       "X-Authorization": accessToken,
+    //     },
+    //     body: JSON.stringify({
+    //       comment,
+    //     }),
+    //   });
+
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(`here: ${error}`);
+    // }
+  };
 
   return (
-    <div className="bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md">
-      <div className="flex-1">
-        <p className="text-lg text-gray-800">{comment.comment}</p>
-        <span className="text-sm text-gray-500">by {comment.email}</span>
-      </div>
-      {email && (
-        <div className="flex flex-col gap-2 ml-5">
-          <button
-            disabled={!isCreator}
-            className={`px-4 py-2 text-base ${!isCreator ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600 cursor-pointer'} rounded-lg shadow-sm transition-all`}
-            onClick={editClickHandler}
-          >
-            Edit
-          </button>
-          <button
-            disabled={!isCreator}
-            className={`px-4 py-2 text-base ${!isCreator ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-red-500 text-white hover:bg-red-600 cursor-pointer'} rounded-lg shadow-sm transition-all`}
-            onClick={deleteClickHandler}
-          >
-            Delete
-          </button>
+    <>
+      {!editing ? (
+        <div className="bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md">
+          <div className="flex-1">
+            <p className="text-lg text-gray-800">{comment.comment}</p>
+            <span className="text-sm text-gray-500">by {comment.email}</span>
+          </div>
+          {email && (
+            <div className="flex flex-col gap-2 ml-5">
+              <button
+                disabled={!isCreator}
+                className={`px-4 py-2 text-base ${
+                  !isCreator
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
+                } rounded-lg shadow-sm transition-all`}
+                onClick={editClickHandler}
+              >
+                Edit
+              </button>
+              <button
+                disabled={!isCreator}
+                className={`px-4 py-2 text-base ${
+                  !isCreator
+                    ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                    : "bg-red-500 text-white hover:bg-red-600 cursor-pointer"
+                } rounded-lg shadow-sm transition-all`}
+                onClick={deleteClickHandler}
+              >
+                Delete
+              </button>
+            </div>
+          )}
         </div>
+      ) : (
+        <CommentEdit comment={comment.comment} />
       )}
-    </div>
+    </>
   );
 }
+
+// function CommentEdit(content, email) {
+//   return (
+//     <div className="bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md">
+//       <div className="flex-1">
+//         <p className="text-lg text-gray-800">{content}</p>
+//         <span className="text-sm text-gray-500">by {email}</span>
+//       </div>
+//     </div>
+//   );
+// }
