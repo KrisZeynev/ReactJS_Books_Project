@@ -191,14 +191,19 @@ export default function BookDetailsCard({ book, handleDelete }) {
         </div>
 
         {email && (
-          <>{successMessage && (
-            <SuccessBanner message={successMessage} onClose={() => setSuccessMessage("")}/>
-          )}
-          <CommentCreate
-            handleCommentSubmit={handleCommentSubmit}
-            comment={comment}
-            setComment={setComment}
-          /></>
+          <>
+            {successMessage && (
+              <SuccessBanner
+                message={successMessage}
+                onClose={() => setSuccessMessage("")}
+              />
+            )}
+            <CommentCreate
+              handleCommentSubmit={handleCommentSubmit}
+              comment={comment}
+              setComment={setComment}
+            />
+          </>
         )}
       </div>
     </>

@@ -8,7 +8,7 @@ export default function SearchBar({ onSearch }) {
   const searchHandler = (e) => {
     e.preventDefault();
     onSearch(category, searchTerm);
-    setSearchTerm("");
+    // setSearchTerm("");
   };
 
   return (

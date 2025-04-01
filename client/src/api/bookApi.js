@@ -49,25 +49,31 @@ export const useBook = (id) => {
   return book;
 };
 
-export const useCatalog = (option, content) => {
+export const useCatalog = (category, searchTerm) => {
   const [catalog, setCatalog] = useState([]);
 
   useEffect(() => {
     const fetchCatalog = async () => {
+      const obj = {
+        sortBy: "_createdOn desc",
+      };
+      console.log('here: ' + category, searchTerm);
+      if (category && searchTerm) {
+        
+        obj["where"] = `${category}="${searchTerm}"`;
+      }
       try {
-        const searchParams = new URLSearchParams({
-          sortBy: "_createdOn desc",
-        });
+        const searchParams = new URLSearchParams(obj);
+        const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
 
-        if (option && content) {
-          searchParams.append("where", `${option} LIKE \"${content}\"`);
+        if (!response.ok) {
+          throw new Error(`Error fetching catalog: ${response.statusText}`);
         }
 
-        const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
         const data = await response.json();
         setCatalog(data);
       } catch (error) {
-        console.log(error);
+        console.error("Fetch catalog error:", error);
       }
     };
 
@@ -96,5 +102,5 @@ export const useDeleteBook = (id) => {
       console.error("Error deleting book:", error);
     }
   };
-  return {deleteBook};
+  return { deleteBook };
 };
