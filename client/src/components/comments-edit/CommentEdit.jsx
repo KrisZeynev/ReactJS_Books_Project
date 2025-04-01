@@ -1,33 +1,60 @@
-export default function CommentEdit({
-  handleCommentEdit,
-  comment,
-  setComment,
-}) {
+import { useContext, useState } from "react";
+import { UserContext } from "../../contexts/UserContext";
+
+export default function CommentEdit({ comment, cancelEdit, fetchComments }) {
+  const [updatedComment, setUpdatedComment] = useState(comment.comment);
+  const baseCommentsUrl = "http://localhost:3030/data/bookComments";
+  const { accessToken } = useContext(UserContext);
+
+  const saveEditHandler = async (e) => {
+    e.preventDefault();
+    // updateComment(updatedComment);
+    try {
+      const response = await fetch(`${baseCommentsUrl}/${comment._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Authorization": accessToken,
+        },
+        body: JSON.stringify({
+          comment: updatedComment,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Unable to edit the comment");
+      }
+
+      await response.json();
+      cancelEdit();
+      fetchComments();
+    } catch (error) {
+      console.error("Error updating comment:", error);
+    }
+  };
+
   return (
     <form
-      id="commentSection"
-        onSubmit={handleCommentEdit}
-      className="flex flex-col space-y-"
+      onSubmit={saveEditHandler}
+      className="bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md"
     >
-      <textarea
-        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-        placeholder="Write a comment..."
-        name="comment"
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        required
-      ></textarea>
-      <div className="flex justify-center space-x-4">
+      <div className="flex-1">
+        <textarea
+          value={updatedComment}
+          onChange={(e) => setUpdatedComment(e.target.value)}
+          className="w-full p-2 text-gray-800 border border-gray-300 rounded-lg"
+        />
+      </div>
+      <div className="flex flex-col gap-2 ml-5">
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-all hover:bg-blue-600 hover:scale-105 transition-transform duration-200 cursor-pointer"
+          className="px-4 py-2 bg-green-500 text-white hover:bg-green-600 cursor-pointer rounded-lg shadow-sm transition-all"
         >
-          Submit
+          Save
         </button>
         <button
           type="button"
-          className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-all hover:bg-red-600 hover:scale-105 transition-transform duration-200 cursor-pointer"
-          onClick={() => setComment("")}
+          className="px-4 py-2 bg-gray-300 text-gray-500 hover:bg-gray-400 cursor-pointer rounded-lg shadow-sm transition-all"
+          onClick={cancelEdit}
         >
           Cancel
         </button>

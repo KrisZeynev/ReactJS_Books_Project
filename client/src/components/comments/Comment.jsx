@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import CommentCreate from "../comments-create/CommentCreate";
 import CommentEdit from "../comments-edit/CommentEdit";
 
 const baseCommentsUrl = "http://localhost:3030/data/bookComments";
@@ -9,6 +8,7 @@ export default function Comment({ comment, fetchComments }) {
   const { email, accessToken, _id } = useContext(UserContext);
   const isCreator = comment._ownerId === _id;
   const [editing, setEditing] = useState(false);
+  const [updatedComment, setUpdatedComment] = useState(comment.comment);
 
   const deleteClickHandler = async () => {
     const hasConfirm = confirm(`Are you sure you want to delete the comment?`);
@@ -36,25 +36,12 @@ export default function Comment({ comment, fetchComments }) {
     }
   };
 
-  const editClickHandler = async () => {
-    console.log("edit");
+  const editClickHandler = () => {
     setEditing(true);
-    // try {
-    //   const response = await fetch(`${baseCommentsUrl}/${comment._id}`, {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       "X-Authorization": accessToken,
-    //     },
-    //     body: JSON.stringify({
-    //       comment,
-    //     }),
-    //   });
+  };
 
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log(`here: ${error}`);
-    // }
+  const cancelEditHandler = () => {
+    setEditing(false);
   };
 
   return (
@@ -93,19 +80,8 @@ export default function Comment({ comment, fetchComments }) {
           )}
         </div>
       ) : (
-        <CommentEdit comment={comment.comment} />
+        <CommentEdit comment={comment} fetchComments={fetchComments} cancelEdit={cancelEditHandler}/>
       )}
     </>
   );
 }
-
-// function CommentEdit(content, email) {
-//   return (
-//     <div className="bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md">
-//       <div className="flex-1">
-//         <p className="text-lg text-gray-800">{content}</p>
-//         <span className="text-sm text-gray-500">by {email}</span>
-//       </div>
-//     </div>
-//   );
-// }
