@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+.comment-container {
+  @apply bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md;
+}
+
+.comment-text {
+  @apply text-lg text-gray-800;
+}
+
+.comment-author {
+  @apply text-sm text-gray-500;
+}
+
+.comment-buttons {
+  @apply flex flex-col gap-2 ml-5;
+}
+
+.comment-edit,
+.comment-delete {
+  @apply px-4 py-2 text-base w-full text-center;
+}
+
+.comment-edit {
+  @apply px-4 py-2 text-base bg-blue-500 text-white hover:bg-blue-600 cursor-pointer rounded-lg shadow-sm transition-all;
+}
+
+.comment-delete {
+  @apply px-4 py-2 text-base bg-red-500 text-white hover:bg-red-600 cursor-pointer rounded-lg shadow-sm transition-all;
+}
+
+.comment-disabled {
+  @apply bg-gray-300 text-gray-500 cursor-not-allowed;
+}
