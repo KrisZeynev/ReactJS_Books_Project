@@ -13,7 +13,7 @@ import { useDeleteBook } from "../../api/bookApi";
 import CommentCreate from "../comments-create/CommentCreate";
 import SuccessBanner from "../banners/SuccessBanner";
 
-export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
+export default function BookDetailsCard({ book, handleDelete, setLikedBooks, setDislikedBooks }) {
   const { email, _id, accessToken } = useContext(UserContext);
   const navigate = useNavigate();
   const baseUrl = "http://localhost:3030/data/bookCatalog";
@@ -152,6 +152,7 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
               ? -1
               : 0)
         );
+
         if (setLikedBooks) {
           setLikedBooks((prev) =>
             isLike && reaction === "like"
@@ -159,6 +160,16 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
               : prev
           );
         }
+        if (setDislikedBooks) {
+          setDislikedBooks((prev) =>
+            isDislike && reaction === "dislike"
+              ? prev.filter((b) => b._id !== book._id)
+              : isDislike
+              ? [...prev, book]
+              : prev
+          );
+        }
+        
       } else {
         await fetch(baseLikesUrl, {
           method: "POST",
@@ -176,9 +187,15 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
         setReaction(type);
         setLikes(likes + (isLike ? 1 : 0));
         setDislikes(dislikes + (isDislike ? 1 : 0));
+
         if (setLikedBooks) {
           setLikedBooks((prev) => (isLike ? [...prev, book] : prev));
         }
+
+        if (setLikedBooks) {
+          setDislikedBooks((prev) => (isDislike ? [...prev, book] : prev));
+        }
+
       }
     } catch (error) {
       console.error("Error handling vote:", error);

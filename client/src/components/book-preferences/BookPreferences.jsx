@@ -17,17 +17,26 @@ export default function BookPreferences() {
           `${baseLikesUrl}?where=_ownerId%3D%22${_id}%22`,
           {
             method: "GET",
-            headers: { "Content-Type": "application/json", "X-Authorization": accessToken },
+            headers: {
+              "Content-Type": "application/json",
+              "X-Authorization": accessToken,
+            },
           }
         );
         const votes = await response.json();
 
         // separate liked and disliked
-        const likedBookIds = votes.filter(v => v.isLiked).map(v => v.bookId);
-        const dislikedBookIds = votes.filter(v => v.isDisliked).map(v => v.bookId);
+        const likedBookIds = votes
+          .filter((v) => v.isLiked)
+          .map((v) => v.bookId);
+        const dislikedBookIds = votes
+          .filter((v) => v.isDisliked)
+          .map((v) => v.bookId);
 
         const fetchBooksByIds = async (bookIds) => {
-          const bookPromises = bookIds.map(id => fetch(`${baseBooksUrl}/${id}`).then(res => res.json()));
+          const bookPromises = bookIds.map((id) =>
+            fetch(`${baseBooksUrl}/${id}`).then((res) => res.json())
+          );
           return await Promise.all(bookPromises);
         };
 
@@ -59,7 +68,11 @@ export default function BookPreferences() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {likedBooks.map((book) => (
-              <BookDetailsCard key={book.id} book={book} setLikedBooks={setLikedBooks} />
+              <BookDetailsCard
+                key={book.id}
+                book={book}
+                setLikedBooks={setLikedBooks}
+              />
             ))}
           </div>
         </div>
@@ -70,7 +83,11 @@ export default function BookPreferences() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {dislikedBooks.map((book) => (
-              <BookDetailsCard key={book.id} book={book} setDislikedBooks={setDislikedBooks} />
+              <BookDetailsCard
+                key={book.id}
+                book={book}
+                setDislikedBooks={setDislikedBooks}
+              />
             ))}
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
-import request from "../utils/request";
+// import request from "../utils/request";
 
 const baseUrl = "http://localhost:3030/data/bookCatalog";
 
@@ -57,7 +57,6 @@ export const useCatalog = (category, searchTerm) => {
       const obj = {
         sortBy: "_createdOn desc",
       };
-      console.log('here: ' + category, searchTerm);
       if (category && searchTerm) {
         
         obj["where"] = `${category}="${searchTerm}"`;
