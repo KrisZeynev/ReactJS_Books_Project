@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router";
 
-export default function CreateBook() {
+export default function BookCreate() {
   const [errors, setErrors] = useState({});
   const { accessToken } = useContext(UserContext);
   const navigate = useNavigate();
@@ -86,7 +86,7 @@ export default function CreateBook() {
     const baseUrl = "http://localhost:3030/data/bookCatalog";
 
     try {
-      const response = await fetch(baseUrl, {
+      await fetch(baseUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -101,17 +101,12 @@ export default function CreateBook() {
           pages,
           isbn,
           image,
-          likes: [],
-          dislikes: []
         }),
       });
-      // console.log(response);
-      // console.log('good to go');
       navigate(-1);
     } catch (error) {
       console.log(`here: ${error}`);
     }
-    // console.log("Form submitted successfully:", { title, description, author, genre, publicationYear, publicationDate, pages, publisher, isbn, image });
   };
 
   return (

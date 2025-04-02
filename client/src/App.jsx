@@ -16,7 +16,7 @@ import Catalog from "./components/books/Catalog";
 // import CreateBook from "./components/book-create/CreateBook";
 import BookPreferences from "./components/book-preferences/BookPreferences";
 import About from "./components/about-page/About";
-import CreateBook from "./components/book-create/CreateBook";
+import BookCreate from "./components/book-create/BookCreate";
 import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
 import BookEdit from "./components/book-edit/BookEdit";
@@ -60,7 +60,7 @@ function App() {
                 path="/catalog/preferences"
                 element={<BookPreferences />}
               />
-              <Route path="/catalog/create" element={<CreateBook />} />
+              <Route path="/catalog/create" element={<BookCreate />} />
               <Route path="/catalog/:id/edit" element={<BookEdit />} />
             </Route>
 
