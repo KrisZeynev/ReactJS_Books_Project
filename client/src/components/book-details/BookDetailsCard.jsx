@@ -73,25 +73,106 @@ export default function BookDetailsCard({ book, handleDelete }) {
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
 
-  const handleLike = () => {
-    if (reaction === "like") {
-      setReaction("");
-      setLikes(likes - 1);
-    } else {
-      setReaction("like");
-      setLikes(likes + 1);
-      if (reaction === "dislike") setDislikes(dislikes - 1);
-    }
-  };
 
-  const handleDislike = () => {
-    if (reaction === "dislike") {
-      setReaction("");
-      setDislikes(dislikes - 1);
-    } else {
-      setReaction("dislike");
-      setDislikes(dislikes + 1);
-      if (reaction === "like") setLikes(likes - 1);
+  useEffect(() => {
+    const fetchVotes = async () => {
+      try {
+        const response = await fetch(
+          `${baseLikesUrl}?where=bookId%3D%22${book._id}%22`
+        );
+        const votes = await response.json();
+
+        const likesCount = votes.filter((vote) => vote.isLiked).length;
+        const dislikesCount = votes.filter((vote) => vote.isDisliked).length;
+        setLikes(likesCount);
+        setDislikes(dislikesCount);
+
+        const userVote = votes.find((vote) => vote._ownerId === _id);
+        if (userVote) {
+          setReaction(
+            userVote.isLiked ? "like" : userVote.isDisliked ? "dislike" : ""
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching votes:", error);
+      }
+    };
+    fetchVotes();
+  }, [book._id, _id]);
+
+  const handleVote = async (type) => {
+    try {
+      const response = await fetch(
+        `${baseLikesUrl}?where=bookId%3D%22${book._id}%22%20and%20_ownerId%3D%22${_id}%22`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": accessToken,
+          },
+        }
+      );
+
+      const existingVotes = await response.json();
+      const existingVote = existingVotes[0];
+      const isLike = type === "like";
+      const isDislike = type === "dislike";
+
+      if (existingVote) {
+        await fetch(`${baseLikesUrl}/${existingVote._id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": accessToken,
+          },
+          body: JSON.stringify({
+            bookId: book._id,
+            isLiked: isLike && reaction !== "like",
+            isDisliked: isDislike && reaction !== "dislike",
+          }),
+        });
+
+        setReaction(reaction === type ? "" : type);
+        setLikes(
+          likes +
+            (isLike
+              ? reaction === "like"
+                ? -1
+                : 1
+              : reaction === "like"
+              ? -1
+              : 0)
+        );
+        setDislikes(
+          dislikes +
+            (isDislike
+              ? reaction === "dislike"
+                ? -1
+                : 1
+              : reaction === "dislike"
+              ? -1
+              : 0)
+        );
+      } else {
+        await fetch(baseLikesUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Authorization": accessToken,
+          },
+          body: JSON.stringify({
+            bookId: book._id,
+            isLiked: isLike,
+            isDisliked: isDislike,
+          }),
+        });
+
+        setReaction(type);
+        setLikes(likes + (isLike ? 1 : 0));
+        setDislikes(dislikes + (isDislike ? 1 : 0));
+      }
+    } catch (error) {
+      console.error("Error handling vote:", error);
     }
   };
 
@@ -139,8 +220,7 @@ export default function BookDetailsCard({ book, handleDelete }) {
                   </>
                 ) : (
                   <>
-                    <button
-                      // `${isLiked ? 'bg-blue-500 hover:bg-blue-600' : 'bg-blue-200 hover:bg-blue-300'}`
+                    {/* <button
                       className={`flex items-center space-x-2 px-5 py-2 text-white rounded-lg shadow-md 
                         hover:scale-105 transition-transform duration-200 cursor-pointer 
                         ${
@@ -164,6 +244,38 @@ export default function BookDetailsCard({ book, handleDelete }) {
                             : "bg-gray-300 hover:bg-gray-400"
                         }`}
                       onClick={handleDislike}
+                    >
+                      <FaThumbsDown />
+                      <span>
+                        {reaction === "dislike" ? "Disliked" : "Dislike"} (
+                        {dislikes})
+                      </span>
+                    </button> */}
+                    <button
+                      className={`flex items-center space-x-2 px-5 py-2 text-white rounded-lg shadow-md 
+    hover:scale-105 transition-transform duration-200 cursor-pointer 
+    ${
+      reaction === "like"
+        ? "bg-blue-500 hover:bg-blue-600"
+        : "bg-gray-300 hover:bg-gray-400"
+    }`}
+                      onClick={() => handleVote("like")}
+                    >
+                      <FaThumbsUp />
+                      <span>
+                        {reaction === "like" ? "Liked" : "Like"} ({likes})
+                      </span>
+                    </button>
+
+                    <button
+                      className={`flex items-center space-x-2 px-5 py-2 text-white rounded-lg shadow-md 
+    hover:scale-105 transition-transform duration-200 cursor-pointer 
+    ${
+      reaction === "dislike"
+        ? "bg-red-500 hover:bg-red-600"
+        : "bg-gray-300 hover:bg-gray-400"
+    }`}
+                      onClick={() => handleVote("dislike")}
                     >
                       <FaThumbsDown />
                       <span>
