@@ -3,9 +3,7 @@ import { Link } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 
 export default function Header() {
-  const { userLogoutHandler } = useContext(UserContext);
-  // const { email, userLogoutHandler } = useContext(UserContext);
-  const email = localStorage.getItem("email");
+  const { email, userLogoutHandler } = useContext(UserContext);
 
   return (
     <header className="bg-gray-800 text-white py-4 px-8 flex flex-wrap justify-between items-center shadow-md">
