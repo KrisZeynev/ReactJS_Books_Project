@@ -5,23 +5,23 @@ import { useHomeBooks } from "../../api/bookApi";
 
 export default function Home() {
   const { email } = useContext(UserContext);
-  const featuredBooksData = useHomeBooks();
+  const latestBooksData = useHomeBooks();
 
-  const [featuredBooks, setFeaturedBooks] = useState([]);
+  const [latestBooks, setLatestBooks] = useState([]);
 
   useEffect(() => {
-    setFeaturedBooks(featuredBooksData);
-  }, [featuredBooksData]);
+    setLatestBooks(latestBooksData);
+  }, [latestBooksData]);
 
   const handleDelete = (bookId) => {
-    setFeaturedBooks((prevBooks) =>
+    setLatestBooks((prevBooks) =>
       prevBooks.filter((book) => book._id !== bookId)
     );
   };
 
   return (
     <>
-      {featuredBooks.length > 0 ? (
+      {latestBooks.length > 0 ? (
         <div className="flex flex-col items-center justify-center text-center p-6">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
             Welcome to ReactJS Books Project 📚
@@ -30,9 +30,9 @@ export default function Home() {
             Discover, rate, and comment your favorite books!
           </p>
 
-          <h2 className="text-2xl font-semibold mb-4">Featured Books</h2>
+          <h2 className="text-2xl font-semibold mb-4">Latest Books</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 gap-x-25">
-            {featuredBooks.map((book) => (
+            {latestBooks.map((book) => (
               <BookDetailsCard
                 key={book._id}
                 book={book}

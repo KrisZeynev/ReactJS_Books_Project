@@ -4,10 +4,46 @@ import { UserContext } from "../contexts/UserContext";
 
 const baseUrl = "http://localhost:3030/data/bookCatalog";
 
+// export const useHomeBooks = () => {
+//   const [books, setBooks] = useState([]);
+
+//   useEffect(() => {
+//     const controller = new AbortController();
+//     const fetchBooks = async () => {
+//       try {
+//         const searchParams = new URLSearchParams({
+//           sortBy: "_createdOn desc",
+//           pageSize: 3,
+//         });
+
+//         // const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
+//         const response = await fetch(`${baseUrl}?${searchParams.toString()}`, { signal });
+
+//         if (!response.ok) throw new Error("Failed to fetch books");
+
+//         const data = await response.json();
+//         setBooks(data);
+//       } catch (error) {
+//         if (error.name !== "AbortError") {
+//           console.error("Fetch error:", error);
+//         }
+//       }
+//     };
+
+//     fetchBooks();
+//     return () => controller.abort();
+//   }, []);
+
+//   return books;
+// };
+
 export const useHomeBooks = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal; 
+
     const fetchBooks = async () => {
       try {
         const searchParams = new URLSearchParams({
@@ -15,19 +51,27 @@ export const useHomeBooks = () => {
           pageSize: 3,
         });
 
-        const response = await fetch(`${baseUrl}?${searchParams.toString()}`);
+        const response = await fetch(`${baseUrl}?${searchParams.toString()}`, { signal });
+
+        if (!response.ok) throw new Error("Failed to fetch books");
+
         const data = await response.json();
         setBooks(data);
       } catch (error) {
-        console.log(error);
+        if (error.name !== "AbortError") {
+          console.error("Fetch error:", error);
+        }
       }
     };
 
     fetchBooks();
+
+    return () => controller.abort();
   }, []);
 
   return books;
 };
+
 
 export const useBook = (id) => {
   const [book, setBook] = useState(null);
