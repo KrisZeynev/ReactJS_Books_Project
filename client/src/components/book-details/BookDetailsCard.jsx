@@ -15,8 +15,6 @@ import SuccessBanner from "../banners/SuccessBanner";
 
 export default function BookDetailsCard({ book, handleDelete, setLikedBooks, setDislikedBooks }) {
   const { email, _id, accessToken } = useContext(UserContext);
-  const navigate = useNavigate();
-  const baseUrl = "http://localhost:3030/data/bookCatalog";
   const baseLikesUrl = "http://localhost:3030/data/bookLikes";
   const baseCommentsUrl = "http://localhost:3030/data/bookComments";
   const { deleteBook } = useDeleteBook(book._id);

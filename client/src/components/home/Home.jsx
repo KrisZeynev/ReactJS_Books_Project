@@ -4,7 +4,6 @@ import BookDetailsCard from "../book-details/BookDetailsCard";
 import { useHomeBooks } from "../../api/bookApi";
 
 export default function Home() {
-  const { email } = useContext(UserContext);
   const latestBooksData = useHomeBooks();
 
   const [latestBooks, setLatestBooks] = useState([]);

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 .comment-edit-form {
-  @apply bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md;
+  @apply bg-[#f3f4eb] p-4 rounded-lg flex justify-between items-center shadow-md;
 }
 
 .comment-textarea {

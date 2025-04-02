@@ -1,6 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router";
 import { useBook, useDeleteBook } from "../../api/bookApi";
-import { useBookComments } from "../../api/commentsApi";
 import { useContext, useEffect, useState } from "react";
 import Comment from "../comments/Comment";
 import { UserContext } from "../../contexts/UserContext";
@@ -161,7 +160,9 @@ export default function BookDetails() {
             <div className="flex-grow border-t border-[#14203b]"></div>
           </div>
 
-          <span className="flex flex-col items-center text-nav">{book.description}</span>
+          <span className="flex flex-col items-center text-nav">
+            {book.description}
+          </span>
         </div>
 
         {email && (
@@ -207,48 +208,3 @@ export default function BookDetails() {
     </section>
   );
 }
-
-// Feed for the comments
-// import React from 'react';
-// export default function BookDetails() {
-//     const comments = [
-//         { user: 'user1', comment: 'This is cool' },
-//         { user: 'user2', comment: 'Great post!' },
-//         { user: 'user3', comment: 'I love it!' },
-//       ];
-//     return (
-//         <div className="max-w-3xl mx-auto p-4 space-y-4">
-//           {comments.map((comment, index) => (
-//             <div key={index} className="p-4 border border-gray-200 rounded-lg shadow-sm bg-white">
-//               <p className="font-semibold text-gray-800">{comment.user} commented:</p>
-//               <p className="text-gray-600">{`"${comment.comment}"`}</p>
-//             </div>
-//           ))}
-//         </div>
-//       );
-// }
-
-// Text area
-// import React from "react";
-// export default function BookDetails() {
-//   const comments = [
-//     { user: "user1", comment: "This is cool" },
-//     { user: "user2", comment: "Great post!" },
-//     { user: "user3", comment: "I love it!" },
-//   ];
-//   return (
-//     <div className="flex items-center space-x-4">
-//       <div className="flex-shrink-0">
-//         <img
-//           src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png"
-//           alt="User Avatar"
-//           className="h-10 w-10 rounded-full"
-//         />
-//       </div>
-//       <textarea
-//         placeholder="Write a comment..."
-//         className="w-full p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-//       />
-//     </div>
-//   );
-// }

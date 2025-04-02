@@ -1,13 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import BookDetailsCard from "../book-details/BookDetailsCard";
-// import SearchBar from "../search-bar/SearchBar";
 import EmptyStateBook from "./EmptyStateBook";
 import { useCatalog } from "../../api/bookApi";
-import { UserContext } from "../../contexts/UserContext";
-import { FaSearch } from "react-icons/fa";
 
 export default function Catalog() {
-  const { email } = useContext(UserContext);
   const [books, setBooks] = useState([]);
 
   // search bar start
@@ -61,9 +57,7 @@ export default function Catalog() {
         />
         <button
           type="submit"
-          // className="w-full sm:w-auto p-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 dark:bg-blue-500 dark:hover:bg-blue-600 dark:focus:ring-blue-800 flex justify-center"
         >
-          {/* <FaSearch /> */}
         </button>
       </form>
       <div className="flex justify-center">
@@ -76,7 +70,6 @@ export default function Catalog() {
                 handleDelete={handleDelete}
               />
             ))}
-          {/* {email && <EmptyStateBook/>} */}
           <EmptyStateBook />
         </div>
       </div>

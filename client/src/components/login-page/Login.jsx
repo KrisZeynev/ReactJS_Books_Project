@@ -1,11 +1,9 @@
 import { Link, useNavigate } from "react-router";
-import { useLogin } from "../../api/authApi";
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { login } = useLogin();
   const [isFailed, setIsFailed] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
 
