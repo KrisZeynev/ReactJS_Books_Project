@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import "./CommentEdit.css";
 
 export default function CommentEdit({ comment, cancelEdit, fetchComments }) {
   const [updatedComment, setUpdatedComment] = useState(comment.comment);
@@ -8,7 +9,6 @@ export default function CommentEdit({ comment, cancelEdit, fetchComments }) {
 
   const saveEditHandler = async (e) => {
     e.preventDefault();
-    // updateComment(updatedComment);
     try {
       const response = await fetch(`${baseCommentsUrl}/${comment._id}`, {
         method: "PATCH",
@@ -33,29 +33,17 @@ export default function CommentEdit({ comment, cancelEdit, fetchComments }) {
   };
 
   return (
-    <form
-      onSubmit={saveEditHandler}
-      className="bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md"
-    >
+    <form onSubmit={saveEditHandler} className="comment-edit-form">
       <div className="flex-1">
         <textarea
           value={updatedComment}
           onChange={(e) => setUpdatedComment(e.target.value)}
-          className="w-full p-2 text-gray-800 border border-gray-300 rounded-lg"
+          className="comment-textarea"
         />
       </div>
-      <div className="flex flex-col gap-2 ml-5">
-        <button
-          type="submit"
-          className="px-4 py-2 bg-green-500 text-white hover:bg-green-600 cursor-pointer rounded-lg shadow-sm transition-all"
-        >
-          Save
-        </button>
-        <button
-          type="button"
-          className="px-4 py-2 bg-gray-300 text-gray-500 hover:bg-gray-400 cursor-pointer rounded-lg shadow-sm transition-all"
-          onClick={cancelEdit}
-        >
+      <div className="comment-buttons">
+        <button type="submit" className="comment-save">Save</button>
+        <button type="button" className="comment-cancel" onClick={cancelEdit}>
           Cancel
         </button>
       </div>

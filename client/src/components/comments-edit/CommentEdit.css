@@ -1,0 +1,21 @@
+@import "tailwindcss";
+.comment-edit-form {
+    @apply bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md;
+  }
+  
+  .comment-textarea {
+    @apply w-full p-2 text-gray-800 border border-gray-300 rounded-lg;
+  }
+  
+  .comment-buttons {
+    @apply flex flex-col gap-2 ml-5;
+  }
+  
+  .comment-save {
+    @apply px-4 py-2 bg-green-500 text-white hover:bg-green-600 cursor-pointer rounded-lg shadow-sm transition-all;
+  }
+  
+  .comment-cancel {
+    @apply px-4 py-2 bg-gray-300 text-gray-500 hover:bg-gray-400 cursor-pointer rounded-lg shadow-sm transition-all;
+  }
+  
