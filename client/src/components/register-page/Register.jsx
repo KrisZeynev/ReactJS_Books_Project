@@ -3,12 +3,10 @@ import { useRegister } from "../../api/authApi";
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
-import "./Register.css/"
-
+import "./Register.css/";
 
 export function Register() {
   const navigate = useNavigate();
-  const { register } = useRegister();
   const { userLoginHandler } = useContext(UserContext);
   const [isFailed, setIsFailed] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
@@ -149,5 +147,4 @@ export function Register() {
       </form>
     </section>
   );
-
 }

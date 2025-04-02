@@ -28,7 +28,7 @@ export default function BookEdit() {
 
     const regexes = {
       title: /^[A-Za-z0-9\s\-\,\.\!\'\"]{3,20}$/,
-      description: /^[A-Za-z0-9\s\-\,\.\!\'\"]{3,30}$/,
+      description: /^[A-Za-z0-9\s\-\,\.\!\'\"]{3,100}$/,
       author: /^[A-Za-z\s\-\,\.\!\'\"]{3,20}$/,
       genre: /^[A-Za-z\s\-\,\.\!\'\"]{3,20}$/,
       publicationYear: /^(19|20)\d{2}$/,
@@ -50,20 +50,20 @@ export default function BookEdit() {
 
     if (!title || !regexes.title.test(title)) {
       fieldErrors.title =
-        "Title is required and must be between 3 and 100 characters.";
+        "Title is required and must be between 3 and 20 characters.";
     }
 
     if (!description || !regexes.description.test(description)) {
       fieldErrors.description =
-        "Description must be between 3 and 500 characters.";
+        "Description must be between 3 and 100 characters.";
     }
 
     if (!author || !regexes.author.test(author)) {
-      fieldErrors.author = "Author must be between 3 and 50 characters.";
+      fieldErrors.author = "Author must be between 3 and 20 characters.";
     }
 
     if (!genre || !regexes.genre.test(genre)) {
-      fieldErrors.genre = "Genre must be between 3 and 50 characters.";
+      fieldErrors.genre = "Genre must be between 3 and 20 characters.";
     }
 
     if (!publicationYear || !regexes.publicationYear.test(publicationYear)) {
