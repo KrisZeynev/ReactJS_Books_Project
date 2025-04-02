@@ -13,7 +13,7 @@ import { useDeleteBook } from "../../api/bookApi";
 import CommentCreate from "../comments-create/CommentCreate";
 import SuccessBanner from "../banners/SuccessBanner";
 
-export default function BookDetailsCard({ book, handleDelete }) {
+export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
   const { email, _id, accessToken } = useContext(UserContext);
   const navigate = useNavigate();
   const baseUrl = "http://localhost:3030/data/bookCatalog";
@@ -153,6 +153,9 @@ export default function BookDetailsCard({ book, handleDelete }) {
               ? -1
               : 0)
         );
+        if (setLikedBooks) {
+          setLikedBooks(prev => isLike && reaction === "like" ? prev.filter(b => b._id !== book._id) : prev);
+        }
       } else {
         await fetch(baseLikesUrl, {
           method: "POST",
@@ -170,6 +173,9 @@ export default function BookDetailsCard({ book, handleDelete }) {
         setReaction(type);
         setLikes(likes + (isLike ? 1 : 0));
         setDislikes(dislikes + (isDislike ? 1 : 0));
+        if (setLikedBooks) {
+          setLikedBooks(prev => isLike ? [...prev, book] : prev);
+        }
       }
     } catch (error) {
       console.error("Error handling vote:", error);
