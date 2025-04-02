@@ -99,10 +99,10 @@ export default function BookDetails() {
   }
 
   return (
-    <section className="p-6 max-w-3xl mx-auto">
+    <section className="p-6 max-w-3xl mx-auto text-nav">
       <h1 className="text-3xl font-bold mb-4 text-center">Book Details</h1>
 
-      <div className="bg-white shadow-md rounded-lg p-6">
+      <div className="bg-cardDetails shadow-md rounded-lg p-6 shadow-[#14203b]">
         <div id="main" className="flex flex-col justify-center">
           <div className="flex flex-row items-center justify-center md:col-span-7 gap-1">
             <div className="flex justify-center items-center border-solid ml-8">
@@ -113,15 +113,15 @@ export default function BookDetails() {
               />
             </div>
 
-            <div className="space-y-2 basis-1/4 ml-18">
+            <div className="space-y-2 basis-1/4 ml-18 text-nav">
               <h2 className="text-2xl font-semibold">{book.title}</h2>
-              <span className="block text-gray-600">Author: {book.author}</span>
-              <span className="block text-gray-600">Genre: {book.genre}</span>
-              <span className="block text-gray-600">Pages: {book.pages}</span>
-              <span className="block text-gray-600">
+              <span className="block text-nav">Author: {book.author}</span>
+              <span className="block text-nav">Genre: {book.genre}</span>
+              <span className="block text-nav">Pages: {book.pages}</span>
+              <span className="block text-nav">
                 Year: {book.publicationYear}
               </span>
-              <span className="block text-gray-600">ISBN: {book.isbn}</span>
+              <span className="block text-nav">ISBN: {book.isbn}</span>
 
               {email && (
                 <div className="mt-4 flex gap-4 flex-wrap">
@@ -156,12 +156,12 @@ export default function BookDetails() {
           </div>
 
           <div className="flex items-center my-6">
-            <div className="flex-grow border-t border-gray-800"></div>
-            <span className="px-3 text-gray-900 text-sm">Description</span>
-            <div className="flex-grow border-t border-gray-800"></div>
+            <div className="flex-grow border-t border-[#14203b]"></div>
+            <span className="px-3 text-[#14203b] text-sm">Description</span>
+            <div className="flex-grow border-t border-[#14203b]"></div>
           </div>
 
-          <span className="flex flex-col items-center">{book.description}</span>
+          <span className="flex flex-col items-center text-nav">{book.description}</span>
         </div>
 
         {email && (
@@ -172,7 +172,7 @@ export default function BookDetails() {
                 onClose={() => setSuccessMessage("")}
               />
             )}
-            <div className="mt-6 pt-4 border-t-4 border-gray-300">
+            <div className="mt-6 pt-4 border-t-4 border-[#14203b]">
               <CommentCreate
                 handleCommentSubmit={handleCommentSubmit}
                 comment={comment}
@@ -199,8 +199,8 @@ export default function BookDetails() {
             />
           ))
         ) : (
-          <div className="col-span-full bg-gray-100 p-3 rounded-lg text-center">
-            <p className="text-gray-700">No comments have been added yet!</p>
+          <div className="col-span-full bg-cardDetails p-3 rounded-lg text-center shadow-md rounded-lg shadow-[#14203b]">
+            <p className="text-nav">No comments have been added yet!</p>
           </div>
         )}
       </div>

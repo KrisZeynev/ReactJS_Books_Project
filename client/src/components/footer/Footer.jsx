@@ -2,7 +2,7 @@ import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-800 text-white py-6 px-8 mt-10 shadow-md">
+    <footer className="bg-nav text-white py-6 px-8 mt-10 shadow-md">
       <div className="flex justify-between items-center flex-wrap sm:flex-nowrap">
         <div className="text-lg font-semibold">ReactJS Books Project</div>
 

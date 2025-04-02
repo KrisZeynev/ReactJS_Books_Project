@@ -36,10 +36,9 @@ export default function Catalog() {
       <h1 className="text-4xl font-bold text-gray-800 mb-4 mt-4 text-center">
         Catalog
       </h1>
-      {/* <SearchBar onSearch={handleSearch} /> */}
       <form
         onSubmit={searchHandler}
-        className="w-full max-w-md mx-auto flex flex-col sm:flex-row items-center gap-2 bg-white p-3 rounded-lg shadow-md dark:bg-gray-800"
+        className="w-full max-w-md mx-auto flex flex-col sm:flex-row items-center gap-2 bg-cardDetails p-3 rounded-lg shadow-md dark:bg-gray-800"
       >
         <select
           className="w-full sm:w-auto p-2 text-sm border rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"

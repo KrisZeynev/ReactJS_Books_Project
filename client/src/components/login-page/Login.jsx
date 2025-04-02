@@ -53,7 +53,7 @@ export default function Login() {
       <form
         id="login"
         onSubmit={loginFunc}
-        className="bg-white p-8 rounded-lg shadow-lg w-96"
+        className="bg-cardDetails p-8 rounded-lg shadow-lg w-96"
       >
         <div className="flex flex-col items-center">
           {/* <div className="brand-logo w-16 h-16 bg-gray-300 rounded-full mb-4"></div> */}

@@ -6,7 +6,7 @@ export default function Header() {
   const { email, userLogoutHandler } = useContext(UserContext);
 
   return (
-    <header className="bg-gray-800 text-white py-4 px-8 flex flex-wrap justify-between items-center shadow-md">
+    <header className="bg-nav text-white py-4 px-8 flex flex-wrap justify-between items-center shadow-md">
       <div className="text-xl font-bold w-full sm:w-auto text-center sm:text-left">
         ReactJS Books Project
       </div>

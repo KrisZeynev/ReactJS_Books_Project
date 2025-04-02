@@ -1,5 +1,15 @@
+@import "tailwindcss";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* background-color: #f0ebd8; */
+  background-color: #dadddc;
+  color: #14203b;
+}
+
+@theme {
+  --color-nav: #14203b;
+  --color-cardDetails: #f3f4eb;
 }
 
 /* :root {

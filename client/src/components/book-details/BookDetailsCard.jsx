@@ -206,7 +206,7 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks, set
     <>
       <div
         key={book._id}
-        className={`bg-white shadow-lg rounded-lg p-4 w-82 ${
+        className={`bg-cardDetails shadow-lg rounded-lg p-4 w-82 shadow-[#14203b] ${
           email ? "h-180" : "h-111"
         }`}
       >
@@ -217,7 +217,7 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks, set
             className="w-full h-70 object-contain rounded-md mb-2"
           />
           <h3 className="text-xl font-semibold">{book.title}</h3>
-          <p className="text-gray-500">by {book.author}</p>
+          <p className="text-nav">by {book.author}</p>
         </div>
 
         <div id="main" className="mt-6 mb-6 text-center">
@@ -314,4 +314,5 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks, set
       </div>
     </>
   );
+  
 }

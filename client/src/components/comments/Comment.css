@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 .comment-container {
-  @apply bg-gray-100 p-4 rounded-lg flex justify-between items-center shadow-md;
+  @apply bg-[#f3f4eb] p-4 rounded-lg flex justify-between items-center shadow-md;
 }
 
 .comment-text {
-  @apply text-lg text-gray-800;
+  @apply text-lg text-[#14203b];
 }
 
 .comment-author {
-  @apply text-sm text-gray-500;
+  @apply text-sm text-[#14203b];
 }
 
 .comment-buttons {

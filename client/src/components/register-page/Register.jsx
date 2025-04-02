@@ -40,11 +40,12 @@ export function Register() {
       });
 
       if (!response.ok) {
-        setErrMsg("User already exists!");
         setIsFailed(true);
         setTimeout(() => {
           setIsFailed(false);
         }, 2000);
+        const msg = await response.json();
+        setErrMsg(msg.message);
         return;
       }
 
@@ -64,7 +65,7 @@ export function Register() {
       <form
         id="register"
         onSubmit={registerFunc}
-        className="bg-white p-8 rounded-lg shadow-lg w-96"
+        className="bg-cardDetails p-8 rounded-lg shadow-lg w-96"
       >
         <div className="flex flex-col items-center">
           <svg

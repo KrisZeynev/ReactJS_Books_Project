@@ -9,10 +9,10 @@ export default function CommentCreate({
       onSubmit={handleCommentSubmit}
       className="flex flex-col space-y-3"
     >
-      <h3 className="text-lg font-semibold mb-2 text-center">Add a Comment</h3>
+      <h3 className="text-lg font-semibold mb-2 text-center text-[#14203b]">Add a Comment</h3>
 
       <textarea
-        className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="w-full p-3 border border-[#14203b] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-[#14203b]"
         placeholder="Write a comment..."
         name="comment"
         value={comment}

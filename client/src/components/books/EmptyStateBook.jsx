@@ -6,7 +6,7 @@ export default function EmptyStateBook() {
   const { email } = useContext(UserContext);
   return (
     <div
-      className={`bg-white shadow-lg rounded-lg p-4 w-82 ${
+      className={`bg-cardDetails shadow-lg rounded-lg p-4 w-82 ${
         email ? "h-180" : "h-111"
       } flex flex-col items-center justify-center border-dashed border-2 border-gray-300`}
     >

@@ -122,12 +122,12 @@ export default function BookEdit() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-10">
-      <h1 className="text-2xl font-semibold mb-4 text-center">Edit Book</h1>
+    <div className="max-w-2xl mx-auto p-6 bg-cardDetails shadow-lg rounded-xl mt-10">
+      <h1 className="text-2xl font-semibold mb-4 text-center text-nav">Edit Book</h1>
       <form className="space-y-4" onSubmit={handleFormSubmit} ref={formRef}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="block">
-            <span className="text-gray-700">Title</span>
+            <span className="text-nav">Title</span>
             <input
               type="text"
               name="title"
@@ -142,7 +142,7 @@ export default function BookEdit() {
             )}
           </label>
           <label className="block">
-            <span className="text-gray-700">Description</span>
+            <span className="text-nav">Description</span>
             <input
               type="text"
               name="description"
@@ -157,7 +157,7 @@ export default function BookEdit() {
             )}
           </label>
           <label className="block">
-            <span className="text-gray-700">Author</span>
+            <span className="text-nav">Author</span>
             <input
               type="text"
               name="author"
@@ -172,7 +172,7 @@ export default function BookEdit() {
             )}
           </label>
           <label className="block">
-            <span className="text-gray-700">Genre</span>
+            <span className="text-nav">Genre</span>
             <input
               type="text"
               name="genre"
@@ -187,7 +187,7 @@ export default function BookEdit() {
             )}
           </label>
           <label className="block">
-            <span className="text-gray-700">Publication Year</span>
+            <span className="text-nav">Publication Year</span>
             <input
               type="text"
               name="publicationYear"
@@ -202,7 +202,7 @@ export default function BookEdit() {
             )}
           </label>
           <label className="block">
-            <span className="text-gray-700">Number of Pages</span>
+            <span className="text-nav">Number of Pages</span>
             <input
               type="text"
               name="pages"
@@ -219,7 +219,7 @@ export default function BookEdit() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="block">
-            <span className="text-gray-700">ISBN</span>
+            <span className="text-nav">ISBN</span>
             <input
               type="text"
               name="isbn"
@@ -234,7 +234,7 @@ export default function BookEdit() {
             )}
           </label>
           <label className="block">
-            <span className="text-gray-700">Image</span>
+            <span className="text-nav">Image</span>
             <input
               type="text"
               name="image"
