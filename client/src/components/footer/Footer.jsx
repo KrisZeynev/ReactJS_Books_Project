@@ -3,12 +3,10 @@ import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 export default function Footer() {
   return (
     <footer className="bg-gray-800 text-white py-6 px-8 mt-10 shadow-md">
-      <div className="flex flex-wrap justify-between items-center">
-        <div className="text-center sm:text-left text-lg font-semibold w-full sm:w-auto">
-          ReactJS Books Project
-        </div>
+      <div className="flex justify-between items-center flex-wrap sm:flex-nowrap">
+        <div className="text-lg font-semibold">ReactJS Books Project</div>
 
-        <div className="flex justify-center space-x-6 w-full sm:w-auto mt-4 sm:mt-0">
+        <div className="flex justify-center space-x-6">
           <a
             href="https://www.facebook.com"
             target="_blank"
@@ -43,9 +41,7 @@ export default function Footer() {
           </a>
         </div>
 
-        <div className="text-center mt-6 text-sm">
-          <p>&copy; 2025 All rights reserved.</p>
-        </div>
+        <div className="text-sm">&copy; 2025 All rights reserved.</div>
       </div>
     </footer>
   );
