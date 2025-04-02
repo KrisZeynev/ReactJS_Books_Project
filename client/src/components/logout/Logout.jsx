@@ -3,11 +3,9 @@ import { useLogout } from "../../api/authApi";
 
 export default function Logout() {
   const { isLoggedOut } = useLogout();
-  console.log(isLoggedOut);
-  
+
   return (
     <>
-      {/* {isLoggedOut} ? <Navigate to='/login'/> ? <Spinner/> */}
       {isLoggedOut} ? <Navigate to="/login" /> ? <Spinner />
     </>
   );
