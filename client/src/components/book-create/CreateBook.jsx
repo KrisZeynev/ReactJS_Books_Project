@@ -22,10 +22,10 @@ export default function CreateBook() {
     const fieldErrors = {};
 
     const regexes = {
-      title: /^[A-Za-z0-9\s\-\,\.\!\'\"]{3,100}$/,
-      description: /^[A-Za-z0-9\s\-\,\.\!\'\"]{3,500}$/,
-      author: /^[A-Za-z\s\-\,\.\!\'\"]{3,50}$/,
-      genre: /^[A-Za-z\s\-\,\.\!\'\"]{3,50}$/,
+      title: /^[A-Za-z0-9\s\-\,\.\!\'\"]{3,20}$/,
+      description: /^[A-Za-z0-9\s\-\,\.\!\'\"]{3,30}$/,
+      author: /^[A-Za-z\s\-\,\.\!\'\"]{3,20}$/,
+      genre: /^[A-Za-z\s\-\,\.\!\'\"]{3,20}$/,
       publicationYear: /^(19|20)\d{2}$/,
       pages: /^[1-9][0-9]*$/,
       isbn: /^(97(8|9))?\d{9}(\d|X)$/,
