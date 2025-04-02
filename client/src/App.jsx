@@ -72,12 +72,15 @@ function App() {
             <Route path="/catalog/:id/details" element={<BookDetails />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
-          {/* <BookDetails/> */}
         </main>
         <Footer />
       </div>
     </UserContext.Provider>
   );
+  
+
+
+
 }
 
 export default App;
