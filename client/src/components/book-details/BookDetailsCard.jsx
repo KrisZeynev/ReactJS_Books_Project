@@ -73,7 +73,6 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
 
-
   useEffect(() => {
     const fetchVotes = async () => {
       try {
@@ -154,7 +153,11 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
               : 0)
         );
         if (setLikedBooks) {
-          setLikedBooks(prev => isLike && reaction === "like" ? prev.filter(b => b._id !== book._id) : prev);
+          setLikedBooks((prev) =>
+            isLike && reaction === "like"
+              ? prev.filter((b) => b._id !== book._id)
+              : prev
+          );
         }
       } else {
         await fetch(baseLikesUrl, {
@@ -174,7 +177,7 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
         setLikes(likes + (isLike ? 1 : 0));
         setDislikes(dislikes + (isDislike ? 1 : 0));
         if (setLikedBooks) {
-          setLikedBooks(prev => isLike ? [...prev, book] : prev);
+          setLikedBooks((prev) => (isLike ? [...prev, book] : prev));
         }
       }
     } catch (error) {
@@ -189,7 +192,6 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
         className={`bg-white shadow-lg rounded-lg p-4 w-82 ${
           email ? "h-180" : "h-111"
         }`}
-        // className="bg-white shadow-lg rounded-lg p-4 w-80 h-65"
       >
         <div className="text-center">
           <img
@@ -226,37 +228,6 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks }) {
                   </>
                 ) : (
                   <>
-                    {/* <button
-                      className={`flex items-center space-x-2 px-5 py-2 text-white rounded-lg shadow-md 
-                        hover:scale-105 transition-transform duration-200 cursor-pointer 
-                        ${
-                          reaction === "like"
-                            ? "bg-blue-500 hover:bg-blue-600"
-                            : "bg-gray-300 hover:bg-gray-400"
-                        }`}
-                      onClick={handleLike}
-                    >
-                      <FaThumbsUp />
-                      <span>
-                        {reaction === "like" ? "Liked" : "Like"} ({likes})
-                      </span>
-                    </button>
-                    <button
-                      className={`flex items-center space-x-2 px-5 py-2 text-white rounded-lg shadow-md 
-                        hover:scale-105 transition-transform duration-200 cursor-pointer 
-                        ${
-                          reaction === "dislike"
-                            ? "bg-red-500 hover:bg-red-600"
-                            : "bg-gray-300 hover:bg-gray-400"
-                        }`}
-                      onClick={handleDislike}
-                    >
-                      <FaThumbsDown />
-                      <span>
-                        {reaction === "dislike" ? "Disliked" : "Dislike"} (
-                        {dislikes})
-                      </span>
-                    </button> */}
                     <button
                       className={`flex items-center space-x-2 px-5 py-2 text-white rounded-lg shadow-md 
     hover:scale-105 transition-transform duration-200 cursor-pointer 

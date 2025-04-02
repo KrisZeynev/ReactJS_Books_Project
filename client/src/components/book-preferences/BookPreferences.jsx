@@ -46,47 +46,6 @@ export default function BookPreferences() {
     fetchBooks();
   }, [_id, accessToken]);
 
-  // return (
-  //   <>
-  //     <h1 className="text-3xl font-semibold text-center my-6">
-  //       Book Preferences
-  //     </h1>
-
-  //     <div
-  //       id="main"
-  //       className="flex justify-between space-x-8 space-x-8 ml-10 mr-10 mt-10 mb-10"
-  //     >
-  //       <div
-  //         id="liked-books"
-  //         className="w-1/2 p-6 bg-blue-100 rounded-lg shadow-lg"
-  //       >
-  //         <h2 className="text-xl text-center font-semibold text-blue-600 mb-4">
-  //           Liked Books
-  //         </h2>
-  //         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-  //           {likedBooks.map((book) => (
-  //             <BookDetailsCard key={book.id} book={book} setLikedBooks={setLikedBooks} />
-  //           ))}
-  //         </div>
-  //       </div>
-
-  //       <div
-  //         id="disliked-books"
-  //         className="w-1/2 p-6 bg-red-100 rounded-lg shadow-lg"
-  //       >
-  //         <h2 className="text-xl text-center font-semibold text-red-600 mb-4">
-  //           Disliked Books
-  //         </h2>
-  //         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-  //           {dislikedBooks.map((book) => (
-  //             <BookDetailsCard key={book.id} book={book} setDislikedBooks={setDislikedBooks} />
-  //           ))}
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </>
-  // );
-
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-semibold text-center my-6">
@@ -94,7 +53,6 @@ export default function BookPreferences() {
       </h1>
 
       <div className="flex flex-col lg:flex-row lg:space-x-8 space-y-8 lg:space-y-0">
-        {/* Харесани книги */}
         <div className="lg:w-1/2 p-6 bg-blue-100 rounded-lg shadow-lg">
           <h2 className="text-xl text-center font-semibold text-blue-600 mb-4">
             Liked Books
@@ -106,7 +64,6 @@ export default function BookPreferences() {
           </div>
         </div>
 
-        {/* Нехаресани книги */}
         <div className="lg:w-1/2 p-6 bg-red-100 rounded-lg shadow-lg">
           <h2 className="text-xl text-center font-semibold text-red-600 mb-4">
             Disliked Books
