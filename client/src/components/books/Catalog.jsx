@@ -14,8 +14,6 @@ export default function Catalog() {
 
   const searchHandler = (e) => {
     e.preventDefault();
-    console.log(category);
-    console.log(searchTerm);
   };
   // search bar end
 

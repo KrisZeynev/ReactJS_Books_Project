@@ -63,7 +63,8 @@ export default function BookDetailsCard({ book, handleDelete, setLikedBooks, set
     }
 
     try {
-      const result = await deleteBook();
+      // const result = await deleteBook();
+      await deleteBook();
       handleDelete(book._id);
     } catch (error) {
       console.error("Error deleting book:", error);
