@@ -146,18 +146,20 @@ export default function Comment({ comment, fetchComments }) {
             <p className="comment-text">{comment.comment}</p>
             <span className="comment-author">by {comment.email}</span>
           </div>
-          {email && (
+          {isCreator && (
             <div className="comment-buttons">
               <button
-                disabled={!isCreator}
-                className={`comment-edit ${!isCreator ? "comment-disabled" : ""}`}
+                // disabled={!isCreator}
+                // className={`comment-edit ${!isCreator ? "comment-disabled" : ""}`}
+                className={"comment-edit"}
                 onClick={editClickHandler}
               >
                 Edit
               </button>
               <button
-                disabled={!isCreator}
-                className={`comment-delete ${!isCreator ? "comment-disabled" : ""}`}
+                // disabled={!isCreator}
+                // className={`comment-delete ${!isCreator ? "comment-disabled" : ""}`}
+                className={"comment-delete"}
                 onClick={deleteClickHandler}
               >
                 Delete
