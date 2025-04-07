@@ -94,10 +94,13 @@ import { UserContext } from "../../contexts/UserContext";
 import CommentEdit from "../comments-edit/CommentEdit";
 import "./Comment.css";
 
+import { useSelector } from "react-redux";
+
 const baseCommentsUrl = "http://localhost:3030/data/bookComments";
 
 export default function Comment({ comment, fetchComments }) {
-  const { email, accessToken, _id } = useContext(UserContext);
+  // const { email, accessToken, _id } = useContext(UserContext);
+  const { email, _id, accessToken } = useSelector((state) => state.auth);
   const isCreator = comment._ownerId === _id;
   const [editing, setEditing] = useState(false);
 

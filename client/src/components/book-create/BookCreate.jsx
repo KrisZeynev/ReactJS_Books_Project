@@ -2,9 +2,12 @@ import { useContext, useRef, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router";
 
+import { useSelector } from "react-redux";
+
 export default function BookCreate() {
   const [errors, setErrors] = useState({});
-  const { accessToken } = useContext(UserContext);
+  // const { accessToken } = useContext(UserContext);
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const navigate = useNavigate();
 
   const formRef = useRef(null);

@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import BookDetailsCard from "../book-details/BookDetailsCard";
 import { UserContext } from "../../contexts/UserContext";
+import { useSelector } from "react-redux";
 
 export default function BookPreferences() {
-  const { _id, accessToken } = useContext(UserContext);
+  // const { _id, accessToken } = useContext(UserContext);
+  const { _id, accessToken } = useSelector((state) => state.auth);
   const baseLikesUrl = "http://localhost:3030/data/bookLikes";
   const baseBooksUrl = "http://localhost:3030/data/bookCatalog";
 

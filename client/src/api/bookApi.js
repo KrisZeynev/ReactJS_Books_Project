@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../contexts/UserContext";
+import { useSelector } from "react-redux";
 
 const baseUrl = "http://localhost:3030/data/bookCatalog";
 
@@ -126,7 +127,8 @@ export const useCatalog = (category, searchTerm) => {
 };
 
 export const useDeleteBook = (id) => {
-  const { accessToken } = useContext(UserContext);
+  // const { accessToken } = useContext(UserContext);
+  const accessToken = useSelector((state) => state.auth.accessToken);
   const deleteBook = async () => {
     try {
       const response = await fetch(`${baseUrl}/${id}`, {

@@ -13,8 +13,11 @@ import { useDeleteBook } from "../../api/bookApi";
 import CommentCreate from "../comments-create/CommentCreate";
 import SuccessBanner from "../banners/SuccessBanner";
 
+import { useSelector } from "react-redux";
+
 export default function BookDetailsCard({ book, handleDelete, setLikedBooks, setDislikedBooks }) {
-  const { email, _id, accessToken } = useContext(UserContext);
+  // const { email, _id, accessToken } = useContext(UserContext);
+  const { email, _id, accessToken } = useSelector((state) => state.auth);
   const baseLikesUrl = "http://localhost:3030/data/bookLikes";
   const baseCommentsUrl = "http://localhost:3030/data/bookComments";
   const { deleteBook } = useDeleteBook(book._id);

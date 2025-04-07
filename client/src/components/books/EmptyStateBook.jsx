@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { Link } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
+import { useSelector } from "react-redux";
 
 export default function EmptyStateBook() {
-  const { email } = useContext(UserContext);
+  // const { email } = useContext(UserContext);
+  const email = useSelector((state) => state.auth.email);
   return (
     <div
       className={`bg-cardDetails shadow-lg rounded-lg p-4 w-82 ${

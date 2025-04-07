@@ -3,12 +3,16 @@ import { useBook } from "../../api/bookApi";
 import { useContext, useRef, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
+import { useSelector } from "react-redux";
+
 export default function BookEdit() {
   const { id } = useParams();
   const book = useBook(id);
 
   const [errors, setErrors] = useState({});
-  const { accessToken } = useContext(UserContext);
+  // const { accessToken } = useContext(UserContext);
+
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
   const navigate = useNavigate();
 

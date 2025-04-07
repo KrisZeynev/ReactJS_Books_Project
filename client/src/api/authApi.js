@@ -3,6 +3,8 @@ import { useContext } from "react";
 import request from "../utils/request";
 import { UserContext } from "../contexts/UserContext";
 
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/authSlice"; 
 
 const baseUrl = 'http://localhost:3030/users';
 
@@ -29,7 +31,9 @@ export const useLogin = () => {
 };
 
 export const useLogout = () => {
-    const { accessToken, userLogoutHandler } = useContext(UserContext);
+    // const { accessToken, userLogoutHandler } = useContext(UserContext);
+    const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
     useEffect(() => {
         if (!accessToken) {
@@ -43,9 +47,9 @@ export const useLogout = () => {
         };
 
         request.get(`${baseUrl}/logout`, null, options)
-            .then(userLogoutHandler);
+            .then(dispatch(logout()));
 
-    }, [accessToken, userLogoutHandler]);
+    }, [accessToken, dispatch]);
 
     return {
         isLoggedOut: !!accessToken,

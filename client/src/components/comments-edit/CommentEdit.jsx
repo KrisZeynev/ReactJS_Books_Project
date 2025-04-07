@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import "./CommentEdit.css";
+import { useSelector } from "react-redux";
 
 export default function CommentEdit({ comment, cancelEdit, fetchComments }) {
   const [updatedComment, setUpdatedComment] = useState(comment.comment);
   const baseCommentsUrl = "http://localhost:3030/data/bookComments";
-  const { accessToken } = useContext(UserContext);
+  // const { accessToken } = useContext(UserContext);
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
   const saveEditHandler = async (e) => {
     e.preventDefault();

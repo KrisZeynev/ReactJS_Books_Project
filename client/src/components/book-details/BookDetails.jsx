@@ -6,11 +6,15 @@ import { UserContext } from "../../contexts/UserContext";
 import CommentCreate from "../comments-create/CommentCreate";
 import SuccessBanner from "../banners/SuccessBanner";
 
+import { useSelector } from "react-redux";
+
 export default function BookDetails() {
   const { id } = useParams();
   const book = useBook(id);
   const navigate = useNavigate();
-  const { email, _id, accessToken } = useContext(UserContext);
+  // const { email, _id, accessToken } = useContext(UserContext);
+
+  const { email, _id, accessToken } = useSelector((state) => state.auth);
 
   const [comment, setComment] = useState("");
 
