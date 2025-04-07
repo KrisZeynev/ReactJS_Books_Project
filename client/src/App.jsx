@@ -20,6 +20,8 @@ import BookCreate from "./components/book-create/BookCreate";
 import AuthGuard from "./guards/AuthGuard";
 import GuestGuard from "./guards/GuestGuard";
 import BookEdit from "./components/book-edit/BookEdit";
+import store from './redux/store.js';
+import { Provider } from "react-redux";
 
 function App() {
   // const [authData, setAuthData] = useState({});
@@ -43,9 +45,10 @@ function App() {
   };
 
   return (
-    <UserContext.Provider
-      value={{ ...authData, userLoginHandler, userLogoutHandler }}
-    >
+    <Provider store={store}>
+    {/* <UserContext.Provider */}
+      {/* value={{ ...authData, userLoginHandler, userLogoutHandler }} */}
+    {/* > */}
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">
@@ -75,7 +78,8 @@ function App() {
         </main>
         <Footer />
       </div>
-    </UserContext.Provider>
+    {/* </UserContext.Provider> */}
+    </Provider>
   );
   
 
