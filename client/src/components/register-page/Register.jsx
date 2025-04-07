@@ -2,9 +2,15 @@ import { Link, useNavigate } from "react-router";
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/authSlice"; 
+
 export function Register() {
   const navigate = useNavigate();
+
   const { userLoginHandler } = useContext(UserContext);
+  const dispatch = useDispatch();
+
   const [isFailed, setIsFailed] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
 
@@ -47,7 +53,8 @@ export function Register() {
       }
 
       const result = await response.json();
-      userLoginHandler(result);
+      // userLoginHandler(result);
+      dispatch(login(result));
       navigate("/");
     } catch (error) {
       setErrMsg(error);

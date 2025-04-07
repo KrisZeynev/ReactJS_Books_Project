@@ -2,12 +2,17 @@ import { Link, useNavigate } from "react-router";
 import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/authSlice";
+
 export default function Login() {
   const navigate = useNavigate();
   const [isFailed, setIsFailed] = useState(false);
   const [errMsg, setErrMsg] = useState(null);
 
   const { userLoginHandler } = useContext(UserContext);
+
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +41,8 @@ export default function Login() {
       }
 
       const result = await response.json();
-      userLoginHandler(result);
+      // userLoginHandler(result);
+      dispatch(login(result));
       navigate("/");
     } catch (error) {
       setErrMsg(error);

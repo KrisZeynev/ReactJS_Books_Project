@@ -2,8 +2,19 @@ import { useContext } from "react";
 import { Link } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/authSlice"; 
+
 export default function Header() {
-  const { email, userLogoutHandler } = useContext(UserContext);
+  // const { email, userLogoutHandler } = useContext(UserContext);
+
+  const dispatch = useDispatch();
+  const email = useSelector((state) => state.auth.email);
+
+  const handleLogout = () => {
+    dispatch(logout());  
+  };
+
 
   return (
     <header className="bg-nav text-white py-4 px-8 flex flex-wrap justify-between items-center shadow-md">
@@ -51,7 +62,8 @@ export default function Header() {
             <Link
               to="/logout"
               className="hover:text-gray-400"
-              onClick={userLogoutHandler}
+              // onClick={userLogoutHandler}
+              onClick={handleLogout}
             >
               Logout
             </Link>
