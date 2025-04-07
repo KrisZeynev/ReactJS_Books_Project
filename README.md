@@ -58,3 +58,12 @@ This structure helps maintain and develop the project by separating responsibili
 - The client (React app) sends requests to the server's REST API to fetch, add, update, or delete books.
 - User interactions, such as liking, disliking, and commenting on books, are handled through API requests to the server.
 - The server responds with data in JSON format, which is displayed dynamically on the client side.
+
+# Bonuses
+
+- [x] Use a state management solution (React Redux) instead of Context API
+ 
+### Details:
+- Replaced `UserContext` with Redux to manage authentication state (`accessToken`, `email`, and `_id`).
+- Added Redux actions for login and logout.
+- Integrated Redux store and connected it with the app using `useSelector` and `useDispatch` hooks.
